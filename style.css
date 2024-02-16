@@ -1,1 +1,102 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Manrope', sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color:rgb(50, 50, 50)
+}
+
+i{
+    font-size:24px;
+}
+
+.container{
+    height: 100vh;
+}
+
+.container .header-section{
+    position: fixed; /* Ensures the header stays on screen even when you scroll down */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    top: 0; 
+    width: 100%; 
+    z-index: 1000; /* Ensures the header stays above other elements */
+    background-color: #ffffff;
+}
+
+.container .header-section .logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.container .header-section .logo img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.container .header-section .logo a{
+    font-weight: 800;
+    font-size: 20px;
+    color:rgb(50, 50, 50)
+}
+
+.container .header-section .pages{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.container .header-section .pages .item{
+    display: flex;
+    align-items: center;
+    cursor: pointer; 
+    gap: 5px;
+}
+
+.container .header-section .pages i{
+    color: rgb(50, 50, 50);
+    transition: all 0.3s ease;
+}
+
+.container .header-section .pages a{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+    color: rgb(50, 50, 50);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.container .header-section .pages .item:hover i,
+.container .header-section .pages .item:hover a {
+    color: rgb(123, 23, 23);
+}
+
+.container .header-section .pages .item#active a,
+.container .header-section .pages .item#active i{
+    color: rgb(123, 23, 23);
+}
+
+@media screen and (max-width: 1200px) {
+
+    .container .header-section{
+        padding: 20px 20px 0 20px;
+    }
+
+    .container .header-section .logo a,
+    .container .header-section .pages a{
+        display: none;
+    }
+
+}
