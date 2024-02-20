@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <title>MixiePixie</title>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header-section">
+            <div class="logo">
+                <img src="images/logo.png">
+                <a href="index.html" class="nav-link">MixiePixie</a>
+            </div>
+
+            <div class="pages">
+                <div class="item">
+                    <i class='bx bx-home-circle'></i>
+                    <a href="index.html" class="nav-link">Home</a>
+                </div>
+                <div class="item">
+                    <i class='bx bx-drink'></i>
+                    <a href="drinks.html" class="nav-link">Drinks</a>
+                </div>
+                <div class="item">
+                    <i class='bx bx-shuffle'></i>
+                    <a href="shuffle.html" class="nav-link">Surprise me</a>
+                </div>
+                <div class="item">
+                    <i class='bx bx-receipt'></i>
+                    <a href="saved.html" class="nav-link">Saved drinks</a>
+                </div>
+                <div class="item" id="account-dropdown">
+                    <i class='bx bx-user'></i> 
+                    <a href="#">My account</a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-item">
+                            <i class='bx bx-edit'></i>
+                            <a href="user.html" class="nav-link">Edit profile</a>
+                        </div>
+                        <div class="dropdown-item" id="active">
+                            <i class='bx bx-cookie'></i>
+                            <a href="privacy.html" class="nav-link">Privacy Policy</a>
+                        </div>
+                        <div class="dropdown-item">
+                            <i class='bx bx-log-out'></i>
+                            <a href="#" id="logout" class="nav-link">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

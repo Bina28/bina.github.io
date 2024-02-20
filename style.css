@@ -16,11 +16,7 @@ i{
     font-size:24px;
 }
 
-.container{
-    height: 100vh;
-}
-
-.container .header-section{
+.header-section{
     position: fixed; /* Ensures the header stays on screen even when you scroll down */
     display: flex;
     align-items: center;
@@ -32,43 +28,43 @@ i{
     background-color: #ffffff;
 }
 
-.container .header-section .logo{
+.header-section .logo{
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.container .header-section .logo img{
+.header-section .logo img{
     width: 40px;
     height: 40px;
     object-fit: cover;
 }
 
-.container .header-section .logo a{
+.header-section .logo a{
     font-weight: 800;
     font-size: 20px;
     color:rgb(50, 50, 50)
 }
 
-.container .header-section .pages{
+.header-section .pages{
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
 
-.container .header-section .pages .item{
+.header-section .pages .item{
     display: flex;
     align-items: center;
     cursor: pointer; 
     gap: 5px;
 }
 
-.container .header-section .pages i{
+.header-section .pages i{
     color: rgb(50, 50, 50);
     transition: all 0.3s ease;
 }
 
-.container .header-section .pages a{
+.header-section .pages a{
     display: flex;
     align-items: center;
     gap: 15px;
@@ -78,12 +74,12 @@ i{
     transition: all 0.3s ease;
 }
 
-.container .header-section .dropdown {
+.header-section .dropdown {
     position: relative;
     display: inline-block;
   }
 
-.container .header-section .dropdown-content {
+.header-section .dropdown-content {
     display: none;
     position: absolute;
     background-color: #ffffff; 
@@ -93,13 +89,12 @@ i{
     top: 100%; 
 }
 
-.container .header-section .dropdown-content .dropdown-item {
+.header-section .dropdown-content .dropdown-item {
     display: flex; 
     align-items: center;
-    padding: 0% 5px;
 }
 
-.container .header-section .dropdown-content a {
+.header-section .dropdown-content a {
     color: rgb(50, 50, 50);
     padding: 10px;
     text-decoration: none;
@@ -108,29 +103,134 @@ i{
     transition: background-color 0.3s ease; 
 }
 
-.container .header-section .dropdown-content > .dropdown-item:hover  {
+.header-section .dropdown-content > .dropdown-item:hover {
     background-color: #f9f9f9; 
 }
 
-.container .header-section .pages .item:hover > a,
-.container .header-section .pages .item:hover i {
+.header-section .pages .item:hover > a,
+.header-section .pages .item:hover > i {
+    color: rgb(123, 23, 23);
+} /* Only item in header will light up in red, not the item inside "My account" dropdown list. FIXED! */
+
+.header-section .pages .item#active > a,
+.header-section .pages .item#active i{
     color: rgb(123, 23, 23);
 }
 
-.container .header-section .pages .item#active > a,
-.container .header-section .pages .item#active i{
-    color: rgb(123, 23, 23);
+
+
+main {
+    border-right: 2px solid #F0F0F0;
+    border-left: 2px solid #F0F0F0;
+    padding: 80px 200px 0 200px;
+}
+
+* {box-sizing:border-box}
+
+main .slideshow-container {
+  max-width: 1000px;
+  max-height: 400px;
+  position: relative;
+  margin: auto;
+}
+
+main .slideshow-container .drinkSlides {
+    display: none; /* Hide the rest of the images */
+} 
+
+main .slideshow-container .drinkSlides {
+    display: flex; /* Use flexbox */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+/* main .slideshow-container .drinkSlides {
+    display: grid; // We want grid layout
+    grid-template-columns: // To make two columns
+    grid-column-gap: 0; // No gap in between
+}  */
+
+main .slideshow-container .drinkSlides img {
+    min-width: 50%;
+    min-height: 400px;
+    max-height: 400px;
+    border-radius: 18px 0 0 18px; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+main .slideshow-container .drinkSlides .drink-details {
+    float: right;
+    min-width: 50%;
+    min-height: 400px;
+    background-color: #ffffff;
+    border-radius: 0 18px 18px 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+main .slideshow-container .drinkSlides .drink-details p,
+main .slideshow-container .drinkSlides .drink-details h3 {
+    color: rgb(50, 50, 50);
+    margin: 20px;
+}
+
+main .prev, 
+main .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: rgb(50, 50, 50);
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+main .next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+main .prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.3);
+}
+
+main .dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+main .active, .dot:hover {
+  background-color: #717171;
+}
+
+main .fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }
 
 @media screen and (max-width: 1200px) {
 
-    .container .header-section{
+    .header-section{
         padding: 20px 20px 0 20px;
     }
 
-    .container .header-section .logo a,
-    .container .header-section .pages a{
+    .header-section .logo a,
+    .header-section .pages a{
         display: none;
     }
 
-}
+} 
