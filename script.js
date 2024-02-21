@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //#endregion account-dropdown
 
 //#region slideshow
+
 let slideIndex = 1;
 showSlides(slideIndex);
 
