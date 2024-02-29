@@ -3,7 +3,7 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Ensures that the width and height of an element includes its padding and border */
     font-family: 'Manrope', sans-serif;
 }
 
@@ -17,13 +17,13 @@ i{
 }
 
 .header-section {
-    position: fixed; /* Ensures the header stays on screen even when you scroll down */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px; /*padding: 10px 200px 0 200px;*/
+    padding: 10px 40px 0 40px;
     top: 0; 
     width: 100%; 
+    position: fixed; /* Ensures the header stays on screen even when you scroll down */
     z-index: 1000; /* Ensures the header stays above other elements */
     background-color: #ffffff;
 }
@@ -56,7 +56,6 @@ i{
     display: flex;
     align-items: center;
     cursor: pointer; 
-    gap: 5px;
 }
 
 .header-section .pages i{
@@ -67,11 +66,21 @@ i{
 .header-section .pages a{
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 5px;
     font-size: 14px;
     color: rgb(50, 50, 50);
     position: relative;
     transition: all 0.3s ease;
+}
+
+.header-section .pages .item > a:hover > i,
+.header-section .pages .item > a:hover > span {
+    color: rgb(100, 100, 100);
+}/* Only item in header will light up, not the item inside "My account" dropdown list. FIXED! */
+
+.header-section .pages .item#active i,
+.header-section .pages .item#active span {
+    color: rgb(0, 0, 0);
 }
 
 .header-section .dropdown {
@@ -106,28 +115,20 @@ i{
     background-color: #f9f9f9; 
 }
 
-.header-section .pages .item:hover > a,
-.header-section .pages .item:hover > i{
-    color: rgb(100, 100, 100);
-} /* Only item in header will light up, not the item inside "My account" dropdown list. FIXED! */
-
-.header-section .pages .item#active > a,
-.header-section .pages .item#active i{
-    color: rgb(100, 100, 100);
+main {
+    padding: 40px 40px 0 40px;
 }
 
-main {
-    border-right: 2px solid #F0F0F0;
-    border-left: 2px solid #F0F0F0;
-    padding: 40px 200px 0 200px;
+main * {
+    color: rgb(50, 50, 50);
 }
 
 main .welcome-section {
-    padding: 20px 20px; 
-    background-color: #edecfa;
+    padding: 20px; 
+    background-color: rgba(235, 235, 250);
     justify-content: space-between;
-    margin: 20px;
-    border-radius: 0; /* 5px */
+    margin: 30px 20px 20px 20px; 
+    border-radius: 5px; 
 }
 
 main .welcome-section h1{
@@ -137,8 +138,6 @@ main .welcome-section h1{
 }
 
 main .welcome-section p{
-    color: rgb(50, 50, 50);
-    font-size: 18px; 
     margin: 10px;
 }
 
@@ -156,15 +155,29 @@ main .welcome-section .explore-button {
 }
 
 main .welcome-section .explore-button:hover {
-    background-color: rgb(50, 50, 50);; 
+    background-color: rgb(50, 50, 50);
 }
 
+main .container-section {
+    padding: 20px; 
+    justify-content: space-between;
+    margin: 30px 20px 20px 20px; 
+}
 
+main .container-section h1 {
+    border-bottom: 4px solid rgb(50, 50, 50);
+}
 
-* {box-sizing:border-box}
+main .container-section h3 {
+    margin-top: 40px;
+}
 
-main .slidesTitle {
-    color: rgb(50, 50, 50);
+main .container-section p {
+    font-size: 18px; 
+    margin: 5px 0 5px 0;
+}
+
+main .underlinedTitle {
     margin: 20px;
     display: flex;
     flex-direction: column;
@@ -173,38 +186,36 @@ main .slidesTitle {
     text-align: center;
 }
 
-main .slidesTitle h2 {
-    border-bottom: 4px solid #edecfa;
+main .underlinedTitle h2 {
+    border-bottom: 4px solid rgb(235, 235, 250);
 }
 
-main .slidesTitle h2:hover {
+main .underlinedTitle h2:hover {
     color: rgb(0, 0, 0);
 }
 
-main .slidesTitle p {
+main .underlinedTitle p {
     padding-top: 10px; 
+    font-size: 18px; 
 }
 
 main .slideshow-container {
     max-width: calc(2 * 400px + 20px); /* This gives us 820, adjust max-width based on height */
     max-height: 400px;
-    max-height: 400px;
     position: relative;
     margin: auto;
-}
+} /* DO NOT TOUCH, ask Irena */
 
 main .slideshow-container .drinkSlides {
     display: none; /* Hide the rest of the img slides */
-} 
+} /* DO NOT TOUCH, ask Irena */
 
 main .slideshow-container .drinkSlides img {
     min-width: 40%;
-    max-width: 40%;
-    min-height: 400px;
     max-height: 400px;
     border-radius: 18px 0 0 18px; 
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-} /* DO NOT TOUCH ANYTHING HERE */
+} /* DO NOT TOUCH, ask Irena */
 
 main .slideshow-container .drinkSlides .drink-details {
     float: right;
@@ -213,26 +224,18 @@ main .slideshow-container .drinkSlides .drink-details {
     align-items: flex-end;
     justify-content: flex-end;
     min-width: 60%;
-    max-width: 60%;
     min-height: 400px;
-    max-height: 400px;
     background-color: #ffffff;
     border-radius: 0 18px 18px 0;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-} /* DO NOT TOUCH ANYTHING HERE */
-
-main .slideshow-container .drinkSlides .drink-details p,
-main .slideshow-container .drinkSlides .drink-details h3 {
-    color: rgb(50, 50, 50);
-    margin: 40px;
-} 
+} /* DO NOT TOUCH, ask Irena */
 
 main .slideshow-container .drinkSlides .drink-details h3 {
-    margin-bottom: 10px;
+    margin: 40px 40px 10px 40px;
 }
 
 main .slideshow-container .drinkSlides .drink-details p {
-    margin-top: 10px;
+    margin: 10px 40px 40px 40px;
 }
 
 main .slideshow-container .prev, 
@@ -240,20 +243,17 @@ main .slideshow-container .next {
   cursor: pointer;
   position: absolute;
   top: 50%;
-  width: auto;
-  margin-top: -22px;
+  margin-top: -25px;
   padding: 16px;
   color: rgb(50, 50, 50);
   font-weight: bold;
-  font-size: 18px;
   transition: 0.6s ease;
-  border-radius: 0 10px 10px 0;
-  user-select: none;
+  border-radius: 0 10px 10px 0; /* Doesnt do anything, unless you want background hover effect */
 }
 
 main .slideshow-container .next {
   right: 0;
-  border-radius: 10px 0 0 10px;
+  border-radius: 10px 0 0 10px; /* The same goes here */
 }
 
 main .prev:hover, 
@@ -292,24 +292,10 @@ main .slideshow-container .fade {
 
 
 
-
-@media screen and (min-width: 1200px) {
-
-    .header-section {
-        padding: 10px 200px 0 200px;
-        
-    }
-}
-
-
 @media screen and (max-width: 1200px) {
 
     .header-section{
-        padding: 20px 20px 0 10px;
-    }
-
-    .header-section .pages a{
-        display: none;
+        padding: 10px 20px 0 20px;
     }
 
     main {
@@ -346,9 +332,21 @@ main .slideshow-container .fade {
 
 @media screen and (max-width: 768px) {
 
-    .header-section .logo a{
+    .header-section .logo .nav-link {
         display: none;
     }
+
+    .header-section .dropdown-content {
+        right: 0; 
+    }
+
+    .header-section .item > a > span {
+        display: none;
+    } /* Hide the span within anchor tags inside elements with the class 'item', aka. home, drinks etc. */
+
+    .header-section .dropdown-content a > span {
+        display: inline;
+    } /* Show the span within anchor tags inside dropdown items, aka. edit profile, privacy policy and logout */
 
     main {
         padding: 80px 10px 0 10px; 
