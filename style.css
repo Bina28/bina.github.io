@@ -18,14 +18,14 @@ i{
 
 .header-section {
     display: flex;
+    position: fixed; /* Ensures the header stays on screen even when you scroll down */
     align-items: center;
     justify-content: space-between;
-    padding: 10px 40px 0 40px;
     top: 0; 
     width: 100%; 
-    position: fixed; /* Ensures the header stays on screen even when you scroll down */
     z-index: 1000; /* Ensures the header stays above other elements */
     background-color: #ffffff;
+    padding: 5px 40px 5px 40px;
 }
 
 .header-section .logo {
@@ -56,6 +56,7 @@ i{
     display: flex;
     align-items: center;
     cursor: pointer; 
+    position: relative;
 }
 
 .header-section .pages i{
@@ -69,7 +70,6 @@ i{
     gap: 5px;
     font-size: 14px;
     color: rgb(50, 50, 50);
-    position: relative;
     transition: all 0.3s ease;
 }
 
@@ -83,31 +83,20 @@ i{
     color: rgb(0, 0, 0);
 }
 
-.header-section .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-
 .header-section .dropdown-content {
-    display: none;
     position: absolute;
+    display: none;
+    top: 100%; 
+    right: 0;
     background-color: #ffffff; 
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    top: 100%; 
 }
 
-.header-section .dropdown-content .dropdown-item {
-    display: flex; 
-    align-items: center;
-}
-
-.header-section .dropdown-content a{
-    color: rgb(50, 50, 50);
-    padding: 10px;
-    text-decoration: none;
+.header-section .dropdown-content .dropdown-item a{
     display: flex;
     align-items: center;
+    padding: 5px 3px 5px 2px;
     transition: background-color 0.3s ease; 
 }
 
@@ -116,52 +105,62 @@ i{
 }
 
 main {
-    padding: 40px 40px 0 40px;
-}
-
-main * {
-    color: rgb(50, 50, 50);
+    margin: 0 40px;
+    margin-top: 5%;
 }
 
 main .welcome-section {
-    padding: 20px; 
-    background-color: rgba(235, 235, 250);
-    justify-content: space-between;
-    margin: 30px 20px 20px 20px; 
-    border-radius: 5px; 
+    position: relative;
+    justify-content: center; 
+    align-items: center;
+    height: 500px;
 }
 
-main .welcome-section h1{
-    color: rgb(0, 0, 0);
-    font-size: 36px;
-    margin: 10px;
+main .welcome-section img {
+    position: absolute;
+    top: 0;
+    left: 50%; 
+    transform: translateX(-50%);
+    height: 100%;
+    width: auto;
+    object-fit: cover;
 }
 
-main .welcome-section p{
-    margin: 10px;
+main .welcome-section .welcome-content {
+    text-align: center;
+    position: relative;
 }
 
-main .welcome-section .explore-button {
+main .welcome-section .welcome-content h1{
+    color: rgb(255, 243, 234); 
+    padding-top: 40px;
+}
+
+main .welcome-section .welcome-content p{
+    color: rgb(255, 243, 234); 
+    padding-top: 10px;
+}
+
+main .welcome-section .welcome-content .explore-button {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: rgb(0, 0, 0); 
-    color: rgb(255, 255, 255); 
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
     font-size: 16px;
-    transition: background-color 0.3s ease;
-    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: rgb(255, 255, 255); 
+    border: 1px solid  rgb(255, 255, 255); 
+    transition: border 0.3s ease;
+    margin-top: 20px;
 }
 
-main .welcome-section .explore-button:hover {
-    background-color: rgb(50, 50, 50);
+main .welcome-section .welcome-content .explore-button:hover {
+    box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
 }
 
 main .container-section {
-    padding: 20px; 
     justify-content: space-between;
-    margin: 30px 20px 20px 20px; 
+    padding: 20px; 
+    margin: 20px; 
 }
 
 main .container-section h1 {
@@ -187,7 +186,7 @@ main .underlinedTitle {
 }
 
 main .underlinedTitle h2 {
-    border-bottom: 4px solid rgb(235, 235, 250);
+    border-bottom: 4px solid rgb(140, 180, 40);
 }
 
 main .underlinedTitle h2:hover {
@@ -204,6 +203,8 @@ main .slideshow-container {
     max-height: 400px;
     position: relative;
     margin: auto;
+    justify-content: center; 
+    align-items: center;
 } /* DO NOT TOUCH, ask Irena */
 
 main .slideshow-container .drinkSlides {
@@ -293,19 +294,29 @@ main .slideshow-container .fade {
 
 
 @media screen and (max-width: 1200px) {
-
+    
     .header-section{
-        padding: 10px 20px 0 20px;
+        margin: 0;
+        padding: 5px 0 5px 0;
+    }
+ 
+    main {
+        margin: 0;
+        margin-top: 5%;
     }
 
-    main {
-        padding: 80px 10px 0 10px; 
+    main .welcome-section .welcome-content .explore-button {
+        background-color: rgba(255, 255, 255, 0.1);
     }
 
     main .slideshow-container {
         max-width: calc(2 * 350px + 20px);
         max-height: 350px;
         max-height: 350px;
+        position: relative;
+        justify-content: center; 
+        align-items: center;
+        padding: 5px;
     }
 
     main .slideshow-container .prev,
@@ -336,10 +347,6 @@ main .slideshow-container .fade {
         display: none;
     }
 
-    .header-section .dropdown-content {
-        right: 0; 
-    }
-
     .header-section .item > a > span {
         display: none;
     } /* Hide the span within anchor tags inside elements with the class 'item', aka. home, drinks etc. */
@@ -347,15 +354,37 @@ main .slideshow-container .fade {
     .header-section .dropdown-content a > span {
         display: inline;
     } /* Show the span within anchor tags inside dropdown items, aka. edit profile, privacy policy and logout */
+    
 
-    main {
-        padding: 80px 10px 0 10px; 
+    main .welcome-section {
+        position: relative;
+        justify-content: center; 
+        align-items: center;
+        height: 300px;
+    }
+    
+    main .welcome-section img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }   
+
+    main .welcome-section .welcome-content h1,
+    main .welcome-section .welcome-content p{
+        color: rgb(255, 255, 255); 
+    }
+
+    main .welcome-section .welcome-content .explore-button {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: rgb(255, 255, 255); 
+        border: 1px solid  rgb(255, 255, 255); 
     }
 
     main .slideshow-container {
         max-width: calc(2 * 350px + 20px);
         max-height: 350px;
         max-height: 350px;
+        margin: 0 auto;
     }
 
     main .slideshow-container .prev,

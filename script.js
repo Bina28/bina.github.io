@@ -1,5 +1,18 @@
-//#region account-dropdown
+//#region handling cookies
 
+// Setting cookies
+
+
+
+// Getting cookies
+
+
+
+
+//#endregion handling cookies
+
+
+//#region account-dropdown
 
 var accountDropdown = document.getElementById("account-dropdown"); // Get the "My account" dropdown item
 var dropdownContent = accountDropdown.querySelector(".dropdown-content"); // Get the dropdown content
@@ -43,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
 //#endregion account-dropdown
+
 
 //#region slideshow
 
