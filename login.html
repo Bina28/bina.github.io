@@ -77,10 +77,10 @@
     <main>
         <div class="form">
             <form id="loginForm">
-              <label for="fname">First Name</label>
+              <label for="fname">email</label>
               <input type="text" id="fname" name="firstname" placeholder="Your name..">
           
-              <label for="lname">Last Name</label>
+              <label for="lname">password</label>
               <input type="text" id="lname" name="lastname" placeholder="Your last name..">
           
              
@@ -95,14 +95,14 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/fireba
   import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
  
   const firebaseConfig = {
-    apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
-    authDomain: "mixiepixie-eba76.firebaseapp.com",
-    projectId: "mixiepixie-eba76",
-    storageBucket: "mixiepixie-eba76.appspot.com",
-    messagingSenderId: "860212929441",
-    appId: "1:860212929441:web:69c799f4dac9d03f43a1e0"
-  };
-
+  apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
+  authDomain: "mixiepixie-eba76.firebaseapp.com",
+  projectId: "mixiepixie-eba76",
+  storageBucket: "mixiepixie-eba76.appspot.com",
+  messagingSenderId: "860212929441",
+  appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
+  databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
+};
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -119,8 +119,8 @@ document.getElementById("submit").addEventListener('click', function(e){
   
   // Sette data i databasen
   set(userRef, {
-    username: username,
-    userlastname: userlastname
+    email: username,
+    password: userlastname
   })
   .then(() => {
     alert('Login successful!');
