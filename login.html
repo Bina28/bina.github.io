@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <title>MixiePixie</title>
+</head>
+<body>
+    <header class="header-section">
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.jpg" alt="MixiePixie Logo"></a>
+            <a href="index.html" class="nav-link">MixiePixie</a>
+        </div>        
+
+        <div class="pages">
+            <div class="item" id="active">
+                <a href="index.html" class="nav-link">
+                    <i class='bx bx-home-circle'></i>
+                    <span>Home</span>
+                </a>
+            </div>
+            <div class="item">
+                <a href="mixer.html" class="nav-link">
+                    <i class='bx bx-fridge'></i>
+                    <span>Mixer</span>
+                </a>
+            </div>
+            <div class="item">
+                <a href="drinks.html" class="nav-link">
+                    <i class='bx bx-drink'></i>
+                    <span>Drinks</span>
+                </a>
+            </div>
+            <div class="item">
+                <a href="saved.html" class="nav-link">
+                    <i class='bx bx-receipt'></i>
+                    <span>Saved</span>
+                </a>
+            </div>
+            <div class="item" id="account-dropdown">
+                <a href="#" class="nav-link">
+                    <i class='bx bx-user'></i>
+                    <span>My account</span>
+                    <span class="arrow">&#9662;</span>
+                </a>
+                <div class="dropdown-content">
+                    <div class="dropdown-item">
+                        <a href="login.html" class="nav-link">
+                            <i class='bx bx-log-in'></i>
+                            <span>Login</span>
+                        </a>
+                    </div>
+                    <div class="dropdown-item">
+                        <a href="user.html" class="nav-link">
+                            <i class='bx bx-edit'></i>
+                            <span>Edit profile</span>
+                        </a>
+                    </div>
+                    <div class="dropdown-item">
+                        <a href="privacy.html" class="nav-link">
+                            <i class='bx bx-cookie'></i>
+                            <span>Privacy Policy</span>
+                        </a>
+                    </div>
+                    <div class="dropdown-item">
+                        <a href="#" id="logout" class="nav-link">
+                            <i class='bx bx-log-out'></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="form">
+            <form id="loginForm">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="firstname" placeholder="Your name..">
+          
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+          
+             
+            
+              <input type="submit" value="Submit" id="submit">
+            </form>
+          </div>
+        </main>
+       <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+  import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+ 
+  const firebaseConfig = {
+    apiKey: "AIzaSyB7Cbn-w4Eswx8csuKIgodzHROlKEvvf84",
+    authDomain: "mixiepixie-8c198.firebaseapp.com",
+    projectId: "mixiepixie-8c198",
+    storageBucket: "mixiepixie-8c198.appspot.com",
+    messagingSenderId: "905272668978",
+    appId: "1:905272668978:web:ea7e38b8fbe53d20cfdd2b"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+const db = getDatabase(app); 
+
+document.getElementById("submit").addEventListener('click', function(e){
+  e.preventDefault();
+  
+  const username = document.getElementById('fname').value;
+  const userlastname = document.getElementById('lname').value;
+  
+  // Referanse til brukerens node i databasen
+  const userRef = ref(db, 'user/' + username);
+  
+  // Sette data i databasen
+  set(userRef, {
+    username: username,
+    userlastname: userlastname
+  })
+  .then(() => {
+    alert('Login successful!');
+  })
+  .catch((error) => {
+    console.error('Error writing data to Realtime Database: ', error);
+  });
+});
+
+       </script>
+    
+      
+        </body>
+        </html>
