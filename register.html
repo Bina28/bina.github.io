@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>MixiePixie</title>
 </head>
+
 <body>
     <header class="header-section">
         <div class="logo">
@@ -15,7 +16,7 @@
         </div>        
 
         <div class="pages">
-            <div class="item" id="active">
+            <div class="item">
                 <a href="index.html" class="nav-link">
                     <i class='bx bx-home-circle'></i>
                     <span>Home</span>
@@ -53,7 +54,7 @@
                         </a>
                     </div>
                     <div class="dropdown-item">
-                        <a href="user.html" class="nav-link">
+                        <a href="profile.html" class="nav-link">
                             <i class='bx bx-edit'></i>
                             <span>Edit profile</span>
                         </a>
@@ -74,6 +75,7 @@
             </div>
         </div>
     </header>
+    
     <main>
         <div class="form">
             <form id="registerForm">
@@ -95,26 +97,23 @@
             </form>
         </div>
     </main>
+
     <script type="module">
-        // Firebase konfigurasjonen din her
+        // Firebase configuration
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getDatabase, set, ref} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
         import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 
-            
-            
-            const firebaseConfig = {
-        
-    apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
-    authDomain: "mixiepixie-eba76.firebaseapp.com",
-    projectId: "mixiepixie-eba76",
-    storageBucket: "mixiepixie-eba76.appspot.com",
-    messagingSenderId: "860212929441",
-    appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
-    databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
-  };
+        const firebaseConfig = {
+            apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
+            authDomain: "mixiepixie-eba76.firebaseapp.com",
+            projectId: "mixiepixie-eba76",
+            storageBucket: "mixiepixie-eba76.appspot.com",
+            messagingSenderId: "860212929441",
+            appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
+            databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
+        };
 
-       
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(); 
