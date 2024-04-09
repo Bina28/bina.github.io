@@ -143,36 +143,23 @@
             let loginForm = document.getElementById('loginForm');
 
             let signInUser = evt => {
-                evt.preventDefault();     
+    evt.preventDefault();     
 
-                signInWithEmailAndPassword(auth, email.value, password.value)
-                .then((credentials) => {
-                    get(child(dbref, '/UserAuthList/' + credentials.user.uid))
-                    .then((snapshot) => {
-                        if(snapshot.exists()){
-                            sessionStorage.setItem("user-info", JSON.stringify({
-                                firstname: snapshot.val().firstname,
-                                lastname: snapshot.val().lastname,
-                            }))
-                            sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                            alert("Login successful c:");
-                            // Redirect til ønsket side
-                        } else {
-                            alert("User not found :c");
-                        }
-                    })
-                    .catch((error) => {
-                        alert("Error retrieving user data: " + error.message);
-                    });
-                })
-                .catch((error) => {
-                    alert("Oh no! " + error.message);
-                });
-            }
+    signInWithEmailAndPassword(auth, email.value, password.value)
+    .then((credentials) => {
+        sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+        alert("Login successful c:");
+        // Redirect to desired page
+    })
+    .catch((error) => {
+        alert("Oh no! " + error.message);
+    });
+}
+
 
             loginForm.addEventListener('submit', signInUser);
         });
     </script>
-    <script src="script.js"></script>
+
 </body>
 </html>
