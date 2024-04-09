@@ -75,54 +75,6 @@
             </div>
         </div>
     </header>
-
-    <head>
-        <title>Recipes</title>
-        <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js"></script>
-        <script src="script.js"></script> <!-- Your custom script should be loaded after Firebase scripts -->
-      </head>
-      <body>
-        <h1>Recipes</h1>
-        <div id="recipes-container"></div>
-      </body>
-    
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
-        authDomain: "mixiepixie-eba76.firebaseapp.com",
-        databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "mixiepixie-eba76",
-        storageBucket: "mixiepixie-eba76.appspot.com",
-        messagingSenderId: "860212929441",
-        appId: "1:860212929441:web:69c799f4dac9d03f43a1e0"
-      };
-      firebase.initializeApp(firebaseConfig);
-      
-      // Get a reference to the database
-      const database = firebase.database();
-  
-      // Retrieve and display recipes
-      function fetchAndDisplayRecipes() {
-        const recipesRef = database.ref('recipes');
-        recipesRef.once('value', (snapshot) => {
-          const recipes = snapshot.val();
-          const recipesContainer = document.getElementById('recipes-container');
-          for (const recipeKey in recipes) {
-            const recipe = recipes[recipeKey];
-            const recipeElement = document.createElement('div');
-            recipeElement.innerHTML = `
-              <h3>${recipe.name}</h3>
-              <p>Ingredients: ${recipe.ingredients.join(', ')}</p>
-              <p>Instructions: ${recipe.instructions}</p>
-            `;
-            recipesContainer.appendChild(recipeElement);
-          }
-        });
-      }
-  
-      // Call fetchAndDisplayRecipes when the page is loaded
-      window.onload = fetchAndDisplayRecipes;
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

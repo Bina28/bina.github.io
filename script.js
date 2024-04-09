@@ -1,3 +1,10 @@
+//#region register-account  
+
+
+//#endregion register-account
+
+
+
 //#region handling cookies
 
 // Setting cookies
@@ -10,6 +17,7 @@
 
 
 //#endregion handling cookies
+
 
 
 //#region account-dropdown
@@ -57,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 //#endregion account-dropdown
+
 
 
 //#region slideshow

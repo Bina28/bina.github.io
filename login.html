@@ -77,19 +77,42 @@
     </header>
 
     <main>
-        <div class="form">
-            <form id="loginForm">
-                <h2>Sign in</h2>
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email" placeholder="Your email..">
-        
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Your password..">
-        
-                <button type="submit">Login</button>
-                <a href="register.html"><button type="button">Create Account</button></a>  
-            </form>
-        </div>
+        <div class="container">
+			<h1>Log in</h1>
+			<div id="form">
+				<form id="loginForm">
+					<div class="input-value">
+                        <label for="email">Email</label>
+						<input type="text" id="email" name="email" placeholder="Email" required />
+					</div>
+					<div class="input-value">
+                        <label for="password">Password</label>
+						<input type="password" id="password" name="password" placeholder="Password" required />
+					</div>
+
+					<div class="social">
+                        <div class="facebook">
+						    <i class='bx bxl-facebook-circle' ></i>
+						</div>
+                        <div class="google">
+                            <i class='bx bxl-google'></i>
+						</div>
+                        <div class="apple">
+						    <i class='bx bxl-apple'></i>
+						</div>
+					</div>
+
+					<div class="button">
+						<button type="submit" class="btn"><i class='bx bx-right-arrow-alt'></i></button>
+					</div>
+
+					<div class="form-links">
+						<p><a href="#">Can't sign in?</a></p>
+						<p><a href="register.html">Create account</a></p>
+					</div>
+				</form>
+			</div>
+		</div>
     </main>
 
     <script type="module">
@@ -132,23 +155,24 @@
                                 lastname: snapshot.val().lastname,
                             }))
                             sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                            alert("Innlogging vellykket.");
+                            alert("Login successful c:");
                             // Redirect til ønsket side
                         } else {
-                            alert("Brukerdata ikke funnet.");
+                            alert("User not found :c");
                         }
                     })
                     .catch((error) => {
-                        alert("Feil ved henting av brukerdata: " + error.message);
+                        alert("Error retrieving user data: " + error.message);
                     });
                 })
                 .catch((error) => {
-                    alert("Feil ved pålogging: " + error.message);
+                    alert("Oh no! " + error.message);
                 });
             }
 
             loginForm.addEventListener('submit', signInUser);
         });
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
