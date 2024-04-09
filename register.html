@@ -47,7 +47,7 @@
                     <span class="arrow">&#9662;</span>
                 </a>
                 <div class="dropdown-content">
-                    <div class="dropdown-item" id="active">
+                    <div class="dropdown-item">
                         <a href="login.html" class="nav-link">
                             <i class='bx bx-log-in'></i>
                             <span>Login</span>
@@ -75,10 +75,10 @@
             </div>
         </div>
     </header>
-
+    
     <main>
         <div class="container">
-			<h1>Log in</h1>
+			<h1>Create account</h1>
 			<div id="form">
 				<form id="loginForm">
 					<div class="input-value">
@@ -88,6 +88,10 @@
 					<div class="input-value">
                         <label for="password">Password</label>
 						<input type="password" id="password" name="password" placeholder="Password" required />
+					</div>
+                    <div class="input-value">
+                        <label for="cfPassword">Comfirm password</label>
+						<input type="password" id="cfPassword" name="cfpassword" placeholder="Comfirm password" required />
 					</div>
 
 					<div class="social">
@@ -102,13 +106,21 @@
 						</div>
 					</div>
 
+					<div class="checkbox">
+						<input type="checkbox" class="checkbox-color" id="check1" name="check" value="stay" />
+                        <label for="check">I am over 18</label>
+					</div>
+                    <div class="checkbox">
+						<input type="checkbox" class="checkbox-color" id="check2" name="check" value="stay" />
+                        <label for="check">I have read and agree with Terms of Service</label>
+					</div>
+
 					<div class="button">
 						<button type="submit" class="btn"><i class='bx bx-right-arrow-alt'></i></button>
 					</div>
 
 					<div class="form-links">
-						<p><a href="#">Can't sign in?</a></p>
-						<p><a href="register.html">Create account</a></p>
+						<p><a href="login.html">Already have an account?</a></p>
 					</div>
 				</form>
 			</div>
@@ -118,9 +130,9 @@
     <script type="module">
         // Firebase configuration
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-        import { getDatabase, get, ref, child} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-        
+        import { getDatabase, set, ref} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
             authDomain: "mixiepixie-eba76.firebaseapp.com",
@@ -130,47 +142,51 @@
             appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
             databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
         };
-        
+
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-            const db = getDatabase(); 
-            const auth = getAuth(app);
-            const dbref = ref(db);
+        const db = getDatabase(); 
+        const auth = getAuth(app);
 
         document.addEventListener("DOMContentLoaded", function() {
             let email = document.getElementById('email');
             let password = document.getElementById('password');
-            let loginForm = document.getElementById('loginForm');
+            let fname = document.getElementById('cfPassword');
+            let checkBox = document.getElementById('check');
+            let registerForm = document.getElementById('registerForm');
 
-            let signInUser = evt => {
+            let registerUser = evt => {
                 evt.preventDefault();     
 
-                signInWithEmailAndPassword(auth, email.value, password.value)
+                if (!checkBox.checked) {
+                    alert("You cannot create an account as you are not over 18 years old.");
+                    return;
+                }
+
+                if (!checkBox.checked) {
+                    alert("You need to agree with our Terms of Service");
+                    return;
+                }
+
+                createUserWithEmailAndPassword(auth, email.value, password.value)
                 .then((credentials) => {
-                    get(child(dbref, '/UserAuthList/' + credentials.user.uid))
-                    .then((snapshot) => {
-                        if(snapshot.exists()){
-                            sessionStorage.setItem("user-info", JSON.stringify({
-                                firstname: snapshot.val().firstname,
-                                lastname: snapshot.val().lastname,
-                            }))
-                            sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                            alert("Login successful c:");
-                            // Redirect til ønsket side
-                        } else {
-                            alert("User not found :c");
-                        }
+                    set(ref(db, '/UserAuthList/' + credentials.user.uid), {
+                        //firstname: fname.value,
+                        //lastname: lname.value
+                    })
+                    .then(() => {
+                        alert("User successfully registered.");
                     })
                     .catch((error) => {
-                        alert("Error retrieving user data: " + error.message);
+                        alert("Error occurred while saving user data: " + error.message);
                     });
                 })
                 .catch((error) => {
-                    alert("Oh no! " + error.message);
+                    alert("Error occurred while registering user: " + error.message);
                 });
             }
 
-            loginForm.addEventListener('submit', signInUser);
+            registerForm.addEventListener('submit', registerUser);
         });
     </script>
     <script src="script.js"></script>

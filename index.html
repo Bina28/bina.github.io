@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,14 +9,14 @@
 </head>
 
 <body>
-<header class="header-section">
-        <div class="logo">
+    <header class="header-section">
+        <div class="logo" id="active">
             <a href="index.html"><img src="images/logo.jpg" alt="MixiePixie Logo"></a>
             <a href="index.html" class="nav-link">MixiePixie</a>
         </div>        
 
         <div class="pages">
-            <div class="item" id="active">
+            <div class="item">
                 <a href="index.html" class="nav-link">
                     <i class='bx bx-home-circle'></i>
                     <span>Home</span>
@@ -56,7 +54,7 @@
                         </a>
                     </div>
                     <div class="dropdown-item">
-                        <a href="user.html" class="nav-link">
+                        <a href="profile.html" class="nav-link">
                             <i class='bx bx-edit'></i>
                             <span>Edit profile</span>
                         </a>
@@ -127,18 +125,15 @@
           
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
-        <br>
-          
-        <div style="text-align:center">
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
+                      
+            <div style="text-align:center">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
         </div>
 
-        
     </main>
-    
     <script src="script.js"></script>
 </body>
 </html>
