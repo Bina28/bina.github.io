@@ -44,6 +44,7 @@
                 <a href="#" class="nav-link">
                     <i class='bx bx-user'></i>
                     <span>My account</span>
+                    <span class="arrow">&#9662;</span>
                 </a>
                 <div class="dropdown-content">
                     <div class="dropdown-item">
@@ -77,42 +78,49 @@
    </main>
        
      
-     <script type="module">
-        // Firebase konfigurasjonen din her
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-        import { getDatabase, ref, get, child} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
-     
+   <main>
+    <div id="cocktails">
 
-            
-            
-            const firebaseConfig = {
-        
-    apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
-    authDomain: "mixiepixie-eba76.firebaseapp.com",
-    projectId: "mixiepixie-eba76",
-    storageBucket: "mixiepixie-eba76.appspot.com",
-    messagingSenderId: "860212929441",
-    appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
-    databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
-  };
-  const app = initializeApp(firebaseConfig);
+     </div>   
+ </main>
+     
+   
+   <script type="module">
+      // Firebase konfigurasjonen din her
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+      import { getDatabase, ref, get, child} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+   
+
+          
+          
+          const firebaseConfig = {
+      
+  apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
+  authDomain: "mixiepixie-eba76.firebaseapp.com",
+  projectId: "mixiepixie-eba76",
+  storageBucket: "mixiepixie-eba76.appspot.com",
+  messagingSenderId: "860212929441",
+  appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
+  databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
+};
+const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 let cocktails = document.getElementById("cocktails");
 let cocno = 1;
 
 function getCoctails() {
-    const dbRef = ref(db, 'Recipes');
-    get(dbRef).then((coctSnapshot) => {
-        const coctList = coctSnapshot.val();
-        if (coctList) {
-            Object.values(coctList).forEach(cocktail => {
-                addCocktailAsListItem(cocktail);
-            });
-        }
-    }).catch(error => {
-        console.error("Error fetching cocktails:", error);
-    });
+  const dbRef = ref(db, 'Recipes');
+  get(dbRef).then((coctSnapshot) => {
+      const coctList = coctSnapshot.val();
+      if (coctList) {
+          Object.values(coctList).forEach(cocktail => {
+              addCocktailAsListItem(cocktail);
+          });
+      }
+  }).catch(error => {
+      console.error("Error fetching cocktails:", error);
+  });
 }
 
 function addCocktailAsListItem(cocktail) {
@@ -123,18 +131,22 @@ function addCocktailAsListItem(cocktail) {
     let heading = document.createElement('h3');
 
     Directions.innerHTML = "Directions: <br>";
-    for (const [key, direction] of Object.entries(cocktail.Directions)) {
-        Directions.innerHTML += `${key}: ${direction}<br>`; // Displaying each direction with its key
+    if (cocktail.Directions) {
+        for (const [key, direction] of Object.entries(cocktail.Directions)) {
+            Directions.innerHTML += `${key}: ${direction}<br>`; // Displaying each direction with its key
+        }
     }
 
     Ingredients.innerHTML = "Ingredients: <br>";
-    for (const [ingredient, amount] of Object.entries(cocktail.Ingredients)) {
-        Ingredients.innerHTML += `${ingredient}: ${amount}<br>`;
+    if (cocktail.Ingredients) {
+        for (const [ingredient, amount] of Object.entries(cocktail.Ingredients)) {
+            Ingredients.innerHTML += `${ingredient}: ${amount}<br>`;
+        }
     }
 
-    Name.innerHTML = "Name: " + cocktail.Name;
-    image.src = cocktail.image;
-    image.alt = cocktail.Name;
+    Name.innerHTML = "Name: " + (cocktail.Name ? cocktail.Name : "Unknown");
+    image.src = cocktail.image ? cocktail.image : ""; // Set a default value if image URL is not provided
+    image.alt = cocktail.Name ? cocktail.Name : ""; // Set a default alt text if cocktail name is not provided
     heading.innerHTML = "Cocktail " + cocno;
 
     let ul = document.createElement('ul');
@@ -151,7 +163,8 @@ function addCocktailAsListItem(cocktail) {
 window.addEventListener('load', getCoctails);
 
 
-  </script>
+</script>
+
   <script src="script.js"></script>
 </body>
 </html>
