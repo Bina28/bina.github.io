@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>MixiePixie</title>
 </head>
+
 <body>
     <header class="header-section">
         <div class="logo">
@@ -15,7 +16,7 @@
         </div>        
 
         <div class="pages">
-            <div class="item" id="active">
+            <div class="item">
                 <a href="index.html" class="nav-link">
                     <i class='bx bx-home-circle'></i>
                     <span>Home</span>
@@ -53,7 +54,7 @@
                         </a>
                     </div>
                     <div class="dropdown-item">
-                        <a href="user.html" class="nav-link">
+                        <a href="profile.html" class="nav-link">
                             <i class='bx bx-edit'></i>
                             <span>Edit profile</span>
                         </a>
@@ -74,47 +75,74 @@
             </div>
         </div>
     </header>
+    
     <main>
-        <div class="form">
-            <form id="registerForm">
-                <h2>Register user</h2>
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email" placeholder="Your email..">
-        
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Your password..">
-        
-                <label for="fname">First name</label>
-                <input type="text" id="fname" name="fname" placeholder="Your first name..">
-        
-                <label for="lname">Last name</label>
-                <input type="text" id="lname" name="lname" placeholder="Your last name..">         
-        
-                <button type="submit">Create new user</button>
-                <a href="login.html"><button type="button">Sign In</button></a>  
-            </form>
-        </div>
+        <div class="container">
+			<h1>Create account</h1>
+			<div id="form">
+				<form id="loginForm">
+					<div class="input-value">
+                        <label for="email">Email</label>
+						<input type="text" id="email" name="email" placeholder="Email" required />
+					</div>
+					<div class="input-value">
+                        <label for="password">Password</label>
+						<input type="password" id="password" name="password" placeholder="Password" required />
+					</div>
+                    <div class="input-value">
+                        <label for="cfPassword">Comfirm password</label>
+						<input type="password" id="cfPassword" name="cfpassword" placeholder="Comfirm password" required />
+					</div>
+
+					<div class="social">
+                        <div class="facebook">
+						    <i class='bx bxl-facebook-circle' ></i>
+						</div>
+                        <div class="google">
+                            <i class='bx bxl-google'></i>
+						</div>
+                        <div class="apple">
+						    <i class='bx bxl-apple'></i>
+						</div>
+					</div>
+
+					<div class="checkbox">
+						<input type="checkbox" class="checkbox-color" id="check1" name="check" value="stay" />
+                        <label for="check">I am over 18</label>
+					</div>
+                    <div class="checkbox">
+						<input type="checkbox" class="checkbox-color" id="check2" name="check" value="stay" />
+                        <label for="check">I have read and agree with Terms of Service</label>
+					</div>
+
+					<div class="button">
+						<button type="submit" class="btn"><i class='bx bx-right-arrow-alt'></i></button>
+					</div>
+
+					<div class="form-links">
+						<p><a href="login.html">Already have an account?</a></p>
+					</div>
+				</form>
+			</div>
+		</div>
     </main>
+
     <script type="module">
-        // Firebase konfigurasjonen din her
+        // Firebase configuration
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getDatabase, set, ref} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
         import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 
-            
-            
-            const firebaseConfig = {
-        
-    apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
-    authDomain: "mixiepixie-eba76.firebaseapp.com",
-    projectId: "mixiepixie-eba76",
-    storageBucket: "mixiepixie-eba76.appspot.com",
-    messagingSenderId: "860212929441",
-    appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
-    databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
-  };
+        const firebaseConfig = {
+            apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
+            authDomain: "mixiepixie-eba76.firebaseapp.com",
+            projectId: "mixiepixie-eba76",
+            storageBucket: "mixiepixie-eba76.appspot.com",
+            messagingSenderId: "860212929441",
+            appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
+            databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
+        };
 
-       
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(); 
@@ -123,33 +151,44 @@
         document.addEventListener("DOMContentLoaded", function() {
             let email = document.getElementById('email');
             let password = document.getElementById('password');
-            let fname = document.getElementById('fname');
-            let lname = document.getElementById('lname');
+            let fname = document.getElementById('cfPassword');
+            let checkBox = document.getElementById('check');
             let registerForm = document.getElementById('registerForm');
 
             let registerUser = evt => {
                 evt.preventDefault();     
 
+                if (!checkBox.checked) {
+                    alert("You cannot create an account as you are not over 18 years old.");
+                    return;
+                }
+
+                if (!checkBox.checked) {
+                    alert("You need to agree with our Terms of Service");
+                    return;
+                }
+
                 createUserWithEmailAndPassword(auth, email.value, password.value)
                 .then((credentials) => {
                     set(ref(db, '/UserAuthList/' + credentials.user.uid), {
-                        firstname: fname.value,
-                        lastname: lname.value
+                        //firstname: fname.value,
+                        //lastname: lname.value
                     })
                     .then(() => {
-                        alert("Bruker registrert og data lagret i databasen.");
+                        alert("User successfully registered.");
                     })
                     .catch((error) => {
-                        alert("Feil ved lagring av brukerdata: " + error.message);
+                        alert("Error occurred while saving user data: " + error.message);
                     });
                 })
                 .catch((error) => {
-                    alert("Feil ved registrering av bruker: " + error.message);
+                    alert("Error occurred while registering user: " + error.message);
                 });
             }
 
             registerForm.addEventListener('submit', registerUser);
         });
     </script>
+    <script src="script.js"></script>
 </body>
 </html>

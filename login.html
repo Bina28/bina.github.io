@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>MixiePixie</title>
 </head>
+
 <body>
     <header class="header-section">
         <div class="logo">
@@ -15,7 +16,7 @@
         </div>        
 
         <div class="pages">
-            <div class="item" id="active">
+            <div class="item">
                 <a href="index.html" class="nav-link">
                     <i class='bx bx-home-circle'></i>
                     <span>Home</span>
@@ -46,14 +47,14 @@
                     <span class="arrow">&#9662;</span>
                 </a>
                 <div class="dropdown-content">
-                    <div class="dropdown-item">
+                    <div class="dropdown-item" id="active">
                         <a href="login.html" class="nav-link">
                             <i class='bx bx-log-in'></i>
                             <span>Login</span>
                         </a>
                     </div>
                     <div class="dropdown-item">
-                        <a href="user.html" class="nav-link">
+                        <a href="profile.html" class="nav-link">
                             <i class='bx bx-edit'></i>
                             <span>Edit profile</span>
                         </a>
@@ -74,45 +75,67 @@
             </div>
         </div>
     </header>
+
     <main>
-        <main>
-            <div class="form">
-                <form id="loginForm">
-                    <h2>Login user</h2>
-                    <label for="email">Email</label>
-                    <input type="text" id="email" name="email" placeholder="Your email..">
-            
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Your password..">
-            
-                    <button type="submit">Login</button>
-                    <a href="register.html"><button type="button">Sign Up</button></a>  
-                </form>
-            </div>
-        </main>
-        <script type="module">
-            // Firebase konfigurasjonen din her
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-            import { getDatabase, get, ref, child} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
-            import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-    
-            
-            
-            const firebaseConfig = {
+        <div class="container">
+			<h1>Log in</h1>
+			<div id="form">
+				<form id="loginForm">
+					<div class="input-value">
+                        <label for="email">Email</label>
+						<input type="text" id="email" name="email" placeholder="Email" required />
+					</div>
+					<div class="input-value">
+                        <label for="password">Password</label>
+						<input type="password" id="password" name="password" placeholder="Password" required />
+					</div>
+
+					<div class="social">
+                        <div class="facebook">
+						    <i class='bx bxl-facebook-circle' ></i>
+						</div>
+                        <div class="google">
+                            <i class='bx bxl-google'></i>
+						</div>
+                        <div class="apple">
+						    <i class='bx bxl-apple'></i>
+						</div>
+					</div>
+
+					<div class="button">
+						<button type="submit" class="btn"><i class='bx bx-right-arrow-alt'></i></button>
+					</div>
+
+					<div class="form-links">
+						<p><a href="#">Can't sign in?</a></p>
+						<p><a href="register.html">Create account</a></p>
+					</div>
+				</form>
+			</div>
+		</div>
+    </main>
+
+    <script type="module">
+        // Firebase configuration
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getDatabase, get, ref, child} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
         
-    apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
-    authDomain: "mixiepixie-eba76.firebaseapp.com",
-    projectId: "mixiepixie-eba76",
-    storageBucket: "mixiepixie-eba76.appspot.com",
-    messagingSenderId: "860212929441",
-    appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
-    databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
-  };
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-        const db = getDatabase(); 
-        const auth = getAuth(app);
-        const dbref = ref(db);
+        const firebaseConfig = {
+            apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
+            authDomain: "mixiepixie-eba76.firebaseapp.com",
+            projectId: "mixiepixie-eba76",
+            storageBucket: "mixiepixie-eba76.appspot.com",
+            messagingSenderId: "860212929441",
+            appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
+            databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+            const db = getDatabase(); 
+            const auth = getAuth(app);
+            const dbref = ref(db);
 
         document.addEventListener("DOMContentLoaded", function() {
             let email = document.getElementById('email');
@@ -132,23 +155,24 @@ const app = initializeApp(firebaseConfig);
                                 lastname: snapshot.val().lastname,
                             }))
                             sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                            alert("Innlogging vellykket.");
+                            alert("Login successful c:");
                             // Redirect til ønsket side
                         } else {
-                            alert("Brukerdata ikke funnet.");
+                            alert("User not found :c");
                         }
                     })
                     .catch((error) => {
-                        alert("Feil ved henting av brukerdata: " + error.message);
+                        alert("Error retrieving user data: " + error.message);
                     });
                 })
                 .catch((error) => {
-                    alert("Feil ved pålogging: " + error.message);
+                    alert("Oh no! " + error.message);
                 });
             }
 
             loginForm.addEventListener('submit', signInUser);
         });
     </script>
+    <script src="script.js"></script>
 </body>
 </html>

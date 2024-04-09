@@ -1,3 +1,10 @@
+//#region register-account  
+
+
+//#endregion register-account
+
+
+
 //#region handling cookies
 
 // Setting cookies
@@ -10,6 +17,7 @@
 
 
 //#endregion handling cookies
+
 
 
 //#region account-dropdown
@@ -59,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //#endregion account-dropdown
 
 
+
 //#region slideshow
 
 let slideIndex = 1;
@@ -91,4 +100,3 @@ function showSlides(n) {
 } 
 
 //#endregion slideshow
-

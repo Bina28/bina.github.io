@@ -26,6 +26,7 @@ i{
     z-index: 1000; /* Ensures the header stays above other elements */
     background-color: #ffffff;
     padding: 5px 40px 5px 40px;
+    box-shadow: 0px 8px 12px 0px rgba(40, 40, 40, 0.1);
 }
 
 .header-section .logo {
@@ -34,7 +35,7 @@ i{
     gap: 10px;
 }
 
-.header-section .logo img{
+.header-section .logo img{ /*d25021 and f5faeb*/
     width: 40px;
     height: 40px;
     object-fit: cover;
@@ -103,10 +104,138 @@ i{
 .header-section .dropdown-content > .dropdown-item:hover {
     background-color: #f9f9f9; 
 }
-
+  
 main {
     margin: 0 40px;
     margin-top: 5%;
+}
+
+main .container {
+    position: absolute;
+    top: 10%;
+    left: 50%; 
+    transform: translate(-50%);
+    width: 500px;
+    height: 600px;
+    background: #fff;
+    text-align: center;
+}
+
+main .container h1 {
+    margin-top: 30px;
+}
+
+main .container #form {
+    margin: 70px 30px 30px 30px;
+}
+
+main .container #form label{
+    display: block;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 30px;
+}
+
+main .container #form input[type=text], 
+main .container #form input[type=password] {
+    display: block;
+    height: 50px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 300;
+    background: rgb(250, 250, 250, 0.1);
+    border-radius: 3px;
+    margin-top: 8px;
+    padding: 0 10px;
+}
+
+main .container #form input-value + * {
+    clear: both;
+  }
+
+main .container #form .social {
+    display: flex;
+    margin-top: 20px;
+}
+
+main .container #form .social > div {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    width: 33.3%;
+    height: 45px;
+    border: 2px solid rgba(50, 50, 50, 0.1);
+    border-radius: 4px;
+    margin: 10px;
+}
+
+main .container #form .social > div:first-child {
+    margin-left: 0;
+}
+
+main .container #form .social > div:last-child {
+    margin-right: 0;
+}
+
+main .container #form .social .facebook:hover,
+main .container #form .social .google:hover,
+main .container #form .social .apple:hover {
+    cursor: pointer;
+    background-color: rgb(247, 247, 247);
+}
+
+main .container #form .checkbox {
+    position: relative;
+    display: flex; 
+    margin: 10px;
+}
+
+main .container #form .checkbox label {
+    margin: 0 10px;
+}
+
+main .container .checkbox-color {
+    filter: hue-rotate(145deg);
+}
+  
+main .container #form input[type=checkbox] {
+    width: 24px; 
+    height: 24px;
+}
+
+main .container #form input[type=checkbox]:hover {
+    cursor: pointer;
+}
+
+main .container #form .button {
+    position: relative;
+    margin-top: 50px;
+}
+
+main .container #form .button .btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 30px;
+    border: none;
+    color: #ffffff;
+    background: rgb(140, 180, 40, 0.8);
+}
+
+main .container #form .button .btn:hover {
+    background: rgba(140, 180, 40);
+    border: 1px solid  rgb(255, 255, 255); 
+    transition: border 0.3s ease;
+    cursor: pointer;
+}
+
+main .container #form .form-links {
+    position: relative;
+    margin-top: 50px;
+}
+
+main .container #form .form-links a:hover {
+    color: #000;
 }
 
 main .welcome-section {
@@ -455,35 +584,3 @@ main .slideshow-container .fade {
         width: 10px;
     }
 } 
-
-input[type=text], input[type=password], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  input[type=submit] {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  input[type=submit]:hover {
-    background-color: #45a049;
-  }
-  
-  .form {
-    margin: 40px;
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
