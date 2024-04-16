@@ -69,6 +69,7 @@
             </div>
         </div>
     </header>
+
     <main>
         <div id="cocktails">
 
@@ -76,7 +77,7 @@
     </main>
          
     <script type="module">
-        // Firebase konfigurasjonen din her
+        // Firebase configuration
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getDatabase, ref, get, child} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";   
             
@@ -90,8 +91,8 @@
             appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
             databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
             };
+        
         const app = initializeApp(firebaseConfig);
-    
         const db = getDatabase(app);
         let cocktails = document.getElementById("cocktails");
         let cocno = 1;
@@ -111,42 +112,131 @@
         }
         
         function addCocktailAsListItem(cocktail) {
-            let Directions = document.createElement('li');
-            let Ingredients = document.createElement('li');
-            let Name = document.createElement('li');
-            let image = document.createElement('img');
+            // Create heading for recipe name
             let heading = document.createElement('h3');
-        
-            Directions.innerHTML = "Directions: <br>";
-            if (cocktail.Directions) {
-                for (const [key, direction] of Object.entries(cocktail.Directions)) {
-                    Directions.innerHTML += `${key}: ${direction}<br>`; // Displaying each direction with its key
-            }}
-        
+            heading.textContent = cocktail.Name ? cocktail.Name : "Unknown"; // Set heading text to the recipe name or "Unknown" if not provided
+
+            // Create image element for recipe image
+            let image = document.createElement('img');
+            image.src = cocktail.image ? cocktail.image : ""; // Set a default value if image URL is not provided
+            image.alt = cocktail.Name ? cocktail.Name : ""; // Set a default alt text if recipe name is not provided
+
+            // Create paragraph for info about the drink
+            let infoParagraph = document.createElement('p');
+            infoParagraph.textContent = cocktail.info ? cocktail.info : "No info available"; // Set info text or a default message if not provided
+
+            // Create button for viewing recipe
+            let viewRecipeButton = document.createElement('button');
+            viewRecipeButton.textContent = "View Recipe";
+            viewRecipeButton.addEventListener('click', function() {
+                // Toggle visibility of recipe details
+                ulIngredients.style.display = ulIngredients.style.display === 'none' ? 'block' : 'none';
+            });
+
+            // Create ul element for ingredients and directions and hide it initially
+            let ulIngredients = document.createElement('ul');
+            ulIngredients.classList.add('ingredients');
+            ulIngredients.style.display = 'none';
+
+            // Create list item for ingredients
+            let Ingredients = document.createElement('li');
             Ingredients.innerHTML = "Ingredients: <br>";
             if (cocktail.Ingredients) {
                 for (const [ingredient, amount] of Object.entries(cocktail.Ingredients)) {
                     Ingredients.innerHTML += `${ingredient}: ${amount}<br>`;
                 }
             }
-        
-            Name.innerHTML = "Name: " + (cocktail.Name ? cocktail.Name : "Unknown");
-            image.src = cocktail.image ? cocktail.image : ""; // Set a default value if image URL is not provided
-            image.alt = cocktail.Name ? cocktail.Name : ""; // Set a default alt text if cocktail name is not provided
-            heading.innerHTML = "Cocktail " + cocno;
-        
-            let ul = document.createElement('ul');
-            ul.append(Name, Directions, Ingredients, image);
+
+            // Create list item for directions
+            let Directions = document.createElement('li');
+            Directions.innerHTML = "Directions: <br>";
+            if (cocktail.Directions) {
+                for (const [key, direction] of Object.entries(cocktail.Directions)) {
+                    Directions.innerHTML += `${key}: ${direction}<br>`; // Displaying each direction with its key
+                }
+            }
+
+            // Append ingredients and directions list items to the ul element
+            ulIngredients.appendChild(Ingredients);
+            ulIngredients.appendChild(Directions);
+
+            // Append name, info, image, button, and ul elements to the list item
             let listItem = document.createElement('li');
             listItem.appendChild(heading);
-            listItem.appendChild(ul);
+            listItem.appendChild(infoParagraph);
+            listItem.appendChild(image);
+            listItem.appendChild(viewRecipeButton);
+            listItem.appendChild(ulIngredients);
+            listItem.classList.add('recipe-item');
+
+            // Append recipe list item to the cocktails container
             cocktails.appendChild(listItem);
             cocno++;
+
+            // Toggle heart to save and unsave the recipe
+            let heartButton = document.createElement('i');
+            heartButton.classList.add('bx', 'bx-heart');
+            heartButton.addEventListener('click', function() {
+                if (heartButton.classList.contains('bxs-heart')) {
+                    heartButton.classList.remove('bxs-heart');
+                    heartButton.classList.add('bx-heart');
+                    removeFromSaved(cocktail);
+                } else {
+                    heartButton.classList.remove('bx-heart');
+                    heartButton.classList.add('bxs-heart');
+                    addToSaved(cocktail);
+                }
+            });
+
+            // Append the heart button to the list item
+            listItem.appendChild(heartButton);
+
+            // Append recipe list item to the cocktails container
+            cocktails.appendChild(listItem);
         }
-    
-        
+
     window.addEventListener('load', getCoctails);  
+
+
     
+    // Function to add a recipe to saved recipes
+    function addToSaved(cocktail) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            const userId = user.uid;
+            const savedRef = ref(db, `SavedRecipes/${userId}/${cocktail.id}`);
+            set(savedRef, true)
+                .then(() => {
+                    console.log("Recipe saved successfully!");
+                })
+                .catch((error) => {
+                    console.error("Error saving recipe:", error);
+                });
+        } else {
+            console.log("User not authenticated.");
+            // Handle user not authenticated error (e.g., show a message, prompt to log in)
+        }
+    }
+
+    // Function to remove a recipe from saved recipes
+    function removeFromSaved(cocktail) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            const userId = user.uid;
+            const savedRef = ref(db, `SavedRecipes/${userId}/${cocktail.id}`);
+            remove(savedRef)
+                .then(() => {
+                    console.log("Recipe removed successfully!");
+                })
+                .catch((error) => {
+                    console.error("Error removing recipe:", error);
+                });
+        } else {
+            console.log("User not authenticated.");
+            // Handle user not authenticated error (e.g., show a message, prompt to log in)
+        }
+    }
+
     </script>  
     <script src="script.js"></script>
 </body>

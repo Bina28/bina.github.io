@@ -417,7 +417,50 @@ main .slideshow-container .fade {
   to {opacity: 1}
 }
 
+#cocktails {
+    max-width: 400px; 
+    margin: 0 auto; 
+    padding: 20px; 
+    list-style-type: none; 
+}
 
+#cocktails li {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    list-style-type: none;
+}
+
+#cocktails h3 {
+    margin-top: 0;
+}
+
+#cocktails img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 10px;
+}
+
+#cocktails ul.ingredients,
+#cocktails ul.directions {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.recipe-item {
+    position: relative;
+  }
+
+.recipe-item .bx-heart,
+.recipe-item .bxs-heart {
+    position: absolute;
+    top: 20px; 
+    right: 20px; 
+    cursor: pointer;
+}
 
 
 
