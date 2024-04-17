@@ -1,3 +1,45 @@
+//#region account-dropdown
+
+var accountDropdown = document.getElementById("account-dropdown"); // Get the "My account" dropdown item
+var dropdownContent = accountDropdown.querySelector(".dropdown-content"); // Get the dropdown content
+
+// Toggle the dropdown menu when "My account" is clicked
+accountDropdown.addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default action (navigation)
+    event.stopPropagation(); // Prevent the click event from bubbling up to the document
+    
+    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block"; // Toggle the display of the dropdown content
+});
+
+
+// Get rid of dropdown menu when clicking outside of it
+document.addEventListener("click", function(event) {
+    if (!dropdownContent.contains(event.target) && event.target !== accountDropdown) {
+        dropdownContent.style.display = "none";
+    }
+});
+
+// Lead to their respective pages when clicked on elements inside "My account"
+document.addEventListener("DOMContentLoaded", function() {
+    const dropdownItems = document.querySelectorAll(".dropdown-item a");
+
+    dropdownItems.forEach(item => {
+        item.addEventListener("click", function(event) {
+            event.preventDefault();
+            const url = this.getAttribute("href");
+            window.location.href = url;
+        });
+    });
+});
+
+
+
+//#endregion account-dropdown
+
+
+
+
+
 //#region register-account  
 
 
@@ -20,51 +62,7 @@
 
 
 
-//#region account-dropdown
 
-var accountDropdown = document.getElementById("account-dropdown"); // Get the "My account" dropdown item
-var dropdownContent = accountDropdown.querySelector(".dropdown-content"); // Get the dropdown content
-
-// Toggle the dropdown menu when "My account" is clicked
-accountDropdown.addEventListener("click", function(event) {
-    event.preventDefault(); // Prevent the default action (navigation)
-    event.stopPropagation(); // Prevent the click event from bubbling up to the document
-    
-    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block"; // Toggle the display of the dropdown content
-});
-
-// Get rid of dropdown menu when clicking outside of it
-document.addEventListener("click", function(event) {
-    if (!dropdownContent.contains(event.target) && event.target !== accountDropdown) {
-        dropdownContent.style.display = "none";
-    }
-});
-
-// Lead to their respective pages when clicked on elements inside "My account"
-document.addEventListener("DOMContentLoaded", function() {
-    const dropdownItems = document.querySelectorAll(".dropdown-item a");
-
-    dropdownItems.forEach(item => {
-        item.addEventListener("click", function(event) {
-            event.preventDefault();
-            const url = this.getAttribute("href");
-            window.location.href = url;
-        });
-    });
-});
-
-// Perform logout functionality and redirect the user back to the main page, e.g. index.html
-document.addEventListener("DOMContentLoaded", function() {
-    const logoutLink = document.getElementById("logout");
-
-    logoutLink.addEventListener("click", function(event) {
-        event.preventDefault();
-
-        window.location.href = "index.html";
-    });
-});
-
-//#endregion account-dropdown
 
 
 
@@ -100,3 +98,5 @@ function showSlides(n) {
 } 
 
 //#endregion slideshow
+
+
