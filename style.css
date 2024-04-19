@@ -418,18 +418,23 @@ main .slideshow-container .fade {
 }
 
 #cocktails {
-    max-width: 400px; 
-    margin: 0 auto; 
-    padding: 20px; 
-    list-style-type: none; 
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    list-style-type: none;
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-between; 
 }
 
 #cocktails li {
+    flex-basis: calc(25% - 20px); 
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 20px;
     list-style-type: none;
+    box-sizing: border-box; 
 }
 
 #cocktails h3 {
@@ -627,3 +632,63 @@ main .slideshow-container .fade {
         width: 10px;
     }
 } 
+
+#cookiePopup {
+    background-color: #ffffff;
+    position: fixed;
+    z-index: 1000;
+    font-size: 14px;
+    width: 35vw;
+    max-width: 42.85em;
+    box-shadow: 0 0 2em rgba(5, 0, 31, 0.15);
+    font-family: "Popins", sans-serif;
+    text-align: justify;
+    line-height: 1.8em;
+    padding: 0.5em 1.4em;
+    border-radius: 6px;
+    transition: all 0.5s ease-in;
+}
+
+#cookiePopup i {
+    display: flex;
+    width: 4em;
+    justify-content: center;
+    align-items: center;
+    transform: translateZ(0);
+    position: relative;
+    margin: auto;
+    font-size: 2em;
+}
+
+#cookiePopup p{
+    text-align: center;
+    margin: 1.4em 0;
+}
+
+#cookiePopup button{
+    background-color: #ca7c4c;
+    border: none;
+    color: #ffffff;
+    font-size: 1.2em;
+    padding: 1em 1.4em;
+    display: block;
+    position: relative;
+    margin: auto;
+    border-radius: 5px;
+}
+
+#cookiePopup a {
+    color: #6859ef;
+}
+
+.hide{
+    visibility: hidden;
+    bottom: 0;
+    right: 2em;
+}
+.show {
+    visibility: visible;
+    bottom: 2em;
+    right: 2em;
+
+}
