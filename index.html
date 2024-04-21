@@ -60,7 +60,7 @@
                         </a>
                     </div>
                     <div class="dropdown-item">
-                        <a href="#" id="logout" class="nav-link">
+                        <a href="#" id="logout-btn" class="nav-link">
                             <i class='bx bx-log-out'></i>
                             <span>Logout</span>
                         </a>
@@ -69,18 +69,6 @@
             </div>
         </div>
     </header>
-
-    <body>
-        <div id="cookiePopup" class="show">
-            <i class='bx bx-cookie'></i>
-            <p>
-                This website collects cookies to deliver better user experience. 
-                <a href="privacy.html">Cookie Policy & Privacy </a>
-            </p>
-            <button id="acceptCookie">Accept</button>
-
-        </div>
-    </body>
 
     <main> <!-- https://vinepair.com/articles/50-most-popular-cocktails-world-2017/ -->
         <div class="welcome-section">
@@ -138,8 +126,86 @@
                 <span class="dot" onclick="currentSlide(3)"></span>
             </div>
         </div>
-
     </main>
+
+    <script>
+        // SLIDESHOW
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Next/Previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("drinkSlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+            dots[i].classList.remove("active");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].classLi
+        }
+
+    </script>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getDatabase, ref, set, get, remove, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
+            authDomain: "mixiepixie-eba76.firebaseapp.com",
+            projectId: "mixiepixie-eba76",
+            storageBucket: "mixiepixie-eba76.appspot.com",
+            messagingSenderId: "860212929441",
+            appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
+            databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(); 
+        const auth = getAuth(app);
+        const dbref = ref(db);
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const logoutButton = document.getElementById('logout-btn');
+            const loggedInUserDiv = document.getElementById('loggedInUser');
+
+            // Events function to logout
+            logoutButton.addEventListener('click', e => {
+                e.preventDefault();
+                auth.signOut().then(() => {
+                    localStorage.removeItem("user");
+                    alert("You have logged out");
+                    window.location.href = "index.html";
+                }).catch((error) => {
+                    console.error("Error:", error);
+                });
+            });
+
+            window.addEventListener('beforeunload', () => {
+                localStorage.removeItem("user");
+            });
+
+        }); 
+
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

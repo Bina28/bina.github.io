@@ -35,7 +35,7 @@ i{
     gap: 10px;
 }
 
-.header-section .logo img{ /*d25021 and f5faeb*/
+.header-section .logo img{ 
     width: 40px;
     height: 40px;
     object-fit: cover;
@@ -77,7 +77,7 @@ i{
 .header-section .pages .item > a:hover > i,
 .header-section .pages .item > a:hover > span {
     color: rgb(100, 100, 100);
-}/* Only item in header will light up, not the item inside "My account" dropdown list. FIXED! */
+}
 
 .header-section .pages .item#active i,
 .header-section .pages .item#active span {
@@ -328,24 +328,24 @@ main .underlinedTitle p {
 }
 
 main .slideshow-container {
-    max-width: calc(2 * 400px + 20px); /* This gives us 820, adjust max-width based on height */
+    max-width: calc(2 * 400px + 20px);
     max-height: 400px;
     position: relative;
     margin: auto;
     justify-content: center; 
     align-items: center;
-} /* DO NOT TOUCH, ask Irena */
+} 
 
 main .slideshow-container .drinkSlides {
-    display: none; /* Hide the rest of the img slides */
-} /* DO NOT TOUCH, ask Irena */
+    display: none; 
+} 
 
 main .slideshow-container .drinkSlides img {
     min-width: 40%;
     max-height: 400px;
     border-radius: 18px 0 0 18px; 
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-} /* DO NOT TOUCH, ask Irena */
+} 
 
 main .slideshow-container .drinkSlides .drink-details {
     float: right;
@@ -358,7 +358,7 @@ main .slideshow-container .drinkSlides .drink-details {
     background-color: #ffffff;
     border-radius: 0 18px 18px 0;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-} /* DO NOT TOUCH, ask Irena */
+} 
 
 main .slideshow-container .drinkSlides .drink-details h3 {
     margin: 40px 40px 10px 40px;
@@ -378,12 +378,10 @@ main .slideshow-container .next {
   color: rgb(50, 50, 50);
   font-weight: bold;
   transition: 0.6s ease;
-  border-radius: 0 10px 10px 0; /* Doesnt do anything, unless you want background hover effect */
 }
 
 main .slideshow-container .next {
   right: 0;
-  border-radius: 10px 0 0 10px; /* The same goes here */
 }
 
 main .prev:hover, 
