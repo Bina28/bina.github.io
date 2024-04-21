@@ -60,7 +60,7 @@
                         </a>
                     </div>
                     <div class="dropdown-item">
-                        <a href="#" id="logout" class="nav-link">
+                        <a href="#" id="logout-btn" class="nav-link">
                             <i class='bx bx-log-out'></i>
                             <span>Logout</span>
                         </a>
@@ -69,12 +69,62 @@
             </div>
         </div>
     </header>
+
     <main>
         <div class="container-section">
             <h1>Saved Drinks</h1>
 
         </div>
     </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getDatabase, ref, set, get, remove, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLQu-ePLLJqMfAXy-2NsgsShfFRhnwZVc",
+            authDomain: "mixiepixie-ire86.firebaseapp.com",
+            projectId: "mixiepixie-ire86",
+            storageBucket: "mixiepixie-ire86.appspot.com",
+            messagingSenderId: "521997735310",
+            appId: "1:521997735310:web:363e1eb20db932acb300df",
+            databaseURL: "https://mixiepixie-ire86-default-rtdb.europe-west1.firebasedatabase.app/"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(); 
+        const auth = getAuth(app);
+        const dbref = ref(db);
+
+        let cocktails = document.getElementById("cocktails");
+        let recipe = 1;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const logoutButton = document.getElementById('logout-btn');
+            const loggedInUserDiv = document.getElementById('loggedInUser');
+
+            // Events function to logout
+            logoutButton.addEventListener('click', e => {
+                e.preventDefault();
+                auth.signOut().then(() => {
+                    localStorage.removeItem("user");
+                    alert("You have logged out");
+                    window.location.href = "index.html";
+                }).catch((error) => {
+                    console.error("Error:", error);
+                });
+            });
+
+            window.addEventListener('beforeunload', () => {
+                localStorage.removeItem("user");
+            });
+
+        }); 
+
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

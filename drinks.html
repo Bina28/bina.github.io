@@ -60,7 +60,7 @@
                         </a>
                     </div>
                     <div class="dropdown-item">
-                        <a href="#" id="logout" class="nav-link">
+                        <a href="#" id="logout-btn" class="nav-link">
                             <i class='bx bx-log-out'></i>
                             <span>Logout</span>
                         </a>
@@ -77,33 +77,39 @@
     </main>
          
     <script type="module">
-        // Firebase configuration
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-        import { getDatabase, ref, get, child} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";   
-            
+        import { getDatabase, ref, set, get, remove, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+        // Firebase configuration
         const firebaseConfig = {
-                
-            apiKey: "AIzaSyCS3krvqV9N4HX2a5H7yq82RWW_tMilvS0",
-            authDomain: "mixiepixie-eba76.firebaseapp.com",
-            projectId: "mixiepixie-eba76",
-            storageBucket: "mixiepixie-eba76.appspot.com",
-            messagingSenderId: "860212929441",
-            appId: "1:860212929441:web:69c799f4dac9d03f43a1e0",
-            databaseURL: "https://mixiepixie-eba76-default-rtdb.europe-west1.firebasedatabase.app"
-            };
+            apiKey: "AIzaSyDLQu-ePLLJqMfAXy-2NsgsShfFRhnwZVc",
+            authDomain: "mixiepixie-ire86.firebaseapp.com",
+            projectId: "mixiepixie-ire86",
+            storageBucket: "mixiepixie-ire86.appspot.com",
+            messagingSenderId: "521997735310",
+            appId: "1:521997735310:web:363e1eb20db932acb300df",
+            databaseURL: "https://mixiepixie-ire86-default-rtdb.europe-west1.firebasedatabase.app/"
+        };
         
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        const db = getDatabase(); 
+        const auth = getAuth(app);
+        const dbref = ref(db);
+
         let cocktails = document.getElementById("cocktails");
-        let cocno = 1;
-        
-        function getCoctails() {
+        let recipe = 1;
+
+
+        // Get recipes from Firebase
+        function getCocktails() {
             const dbRef = ref(db, 'Recipes');
-            get(dbRef).then((coctSnapshot) => {
-                const coctList = coctSnapshot.val();
-                if (coctList) {
-                    Object.values(coctList).forEach(cocktail => {
-                        addCocktailAsListItem(cocktail);
+            get(dbRef).then((ctSnapshot) => {
+                const ctList = ctSnapshot.val();
+                if (ctList) {
+                    Object.entries(ctList).forEach(([cocktailId, cocktail]) => {
+                        addCocktailAsListItem(cocktail, cocktailId);
                     });
                 }
             }).catch(error => {
@@ -111,26 +117,24 @@
             });
         }
         
-        function addCocktailAsListItem(cocktail) {
-            // Create heading for recipe name
+        
+        function addCocktailAsListItem(cocktail, cocktailId) {
+        
             let heading = document.createElement('h3');
-            heading.textContent = cocktail.Name ? cocktail.Name : "Unknown"; // Set heading text to the recipe name or "Unknown" if not provided
+            heading.textContent = cocktail.Name ? cocktail.Name : "Unknown"; 
 
-            // Create image element for recipe image
             let image = document.createElement('img');
-            image.src = cocktail.image ? cocktail.image : ""; // Set a default value if image URL is not provided
-            image.alt = cocktail.Name ? cocktail.Name : ""; // Set a default alt text if recipe name is not provided
+            image.src = cocktail.image ? cocktail.image : ""; 
+            image.alt = cocktail.Name ? cocktail.Name : ""; 
 
-            // Create paragraph for info about the drink
             let infoParagraph = document.createElement('p');
-            infoParagraph.textContent = cocktail.info ? cocktail.info : "No info available"; // Set info text or a default message if not provided
+            infoParagraph.textContent = cocktail.info ? cocktail.info : "No info available"; 
 
             // Create button for viewing recipe
             let viewRecipeButton = document.createElement('button');
             viewRecipeButton.textContent = "View Recipe";
             viewRecipeButton.addEventListener('click', function() {
-                // Toggle visibility of recipe details
-                ulIngredients.style.display = ulIngredients.style.display === 'none' ? 'block' : 'none';
+                ulIngredients.style.display = ulIngredients.style.display === 'none' ? 'block' : 'none'; 
             });
 
             // Create ul element for ingredients and directions and hide it initially
@@ -152,7 +156,7 @@
             Directions.innerHTML = "Directions: <br>";
             if (cocktail.Directions) {
                 for (const [key, direction] of Object.entries(cocktail.Directions)) {
-                    Directions.innerHTML += `${key}: ${direction}<br>`; // Displaying each direction with its key
+                    Directions.innerHTML += `${key}: ${direction}<br>`; 
                 }
             }
 
@@ -169,23 +173,11 @@
             listItem.appendChild(ulIngredients);
             listItem.classList.add('recipe-item');
 
-            // Append recipe list item to the cocktails container
-            cocktails.appendChild(listItem);
-            cocno++;
-
-            // Toggle heart to save and unsave the recipe
+            // Create the heart button
             let heartButton = document.createElement('i');
             heartButton.classList.add('bx', 'bx-heart');
             heartButton.addEventListener('click', function() {
-                if (heartButton.classList.contains('bxs-heart')) {
-                    heartButton.classList.remove('bxs-heart');
-                    heartButton.classList.add('bx-heart');
-                    removeFromSaved(cocktail);
-                } else {
-                    heartButton.classList.remove('bx-heart');
-                    heartButton.classList.add('bxs-heart');
-                    addToSaved(cocktail);
-                }
+                toggleSave(cocktail, heartButton, cocktailId);
             });
 
             // Append the heart button to the list item
@@ -193,51 +185,74 @@
 
             // Append recipe list item to the cocktails container
             cocktails.appendChild(listItem);
+            recipe++;
         }
 
-    window.addEventListener('load', getCoctails);  
+        window.addEventListener('load', getCocktails);
+        
 
 
-    
-    // Function to add a recipe to saved recipes
-    function addToSaved(cocktail) {
-        const user = firebase.auth().currentUser;
-        if (user) {
-            const userId = user.uid;
-            const savedRef = ref(db, `SavedRecipes/${userId}/${cocktail.id}`);
-            set(savedRef, true)
-                .then(() => {
-                    console.log("Recipe saved successfully!");
-                })
-                .catch((error) => {
-                    console.error("Error saving recipe:", error);
+        // Toggle save and unsave recipe
+        function toggleSave(cocktail, heartButton, cocktailId) {
+            const user = auth.currentUser; 
+            if (user) {
+                const userId = user.uid;
+                const userRef = ref(db, `UserSavedRecipes/${userId}/${cocktailId}`);
+                
+                // Check if the recipe is already saved
+                get(userRef).then(snapshot => {
+                    if (snapshot.exists()) {
+                        remove(userRef)
+                            .then(() => {
+                                console.log("Recipe removed");
+                                heartButton.classList.remove('bxs-heart');
+                                heartButton.classList.add('bx-heart');
+                            })
+                            .catch(error => {
+                                console.error("Error removing recipe:", error);
+                            });
+                    } else {
+                        set(userRef, cocktail)
+                            .then(() => {
+                                console.log("Recipe saved");
+                                heartButton.classList.remove('bx-heart');
+                                heartButton.classList.add('bxs-heart');
+                            })
+                            .catch(error => {
+                                console.error("Error saving recipe:", error);
+                            });
+                    }
+                }).catch(error => {
+                    console.error("Error checking if recipe exists:", error);
                 });
-        } else {
-            console.log("User not authenticated.");
-            // Handle user not authenticated error (e.g., show a message, prompt to log in)
+            } else {
+                alert("You need to log in");
+            }
         }
-    }
 
-    // Function to remove a recipe from saved recipes
-    function removeFromSaved(cocktail) {
-        const user = firebase.auth().currentUser;
-        if (user) {
-            const userId = user.uid;
-            const savedRef = ref(db, `SavedRecipes/${userId}/${cocktail.id}`);
-            remove(savedRef)
-                .then(() => {
-                    console.log("Recipe removed successfully!");
-                })
-                .catch((error) => {
-                    console.error("Error removing recipe:", error);
+        document.addEventListener("DOMContentLoaded", function() {
+            const logoutButton = document.getElementById('logout-btn');
+            const loggedInUserDiv = document.getElementById('loggedInUser');
+
+            // Events function to logout
+            logoutButton.addEventListener('click', e => {
+                e.preventDefault();
+                auth.signOut().then(() => {
+                    localStorage.removeItem("user");
+                    alert("You have logged out");
+                    window.location.href = "index.html";
+                }).catch((error) => {
+                    console.error("Error:", error);
                 });
-        } else {
-            console.log("User not authenticated.");
-            // Handle user not authenticated error (e.g., show a message, prompt to log in)
-        }
-    }
+            });
 
-    </script>  
+            window.addEventListener('beforeunload', () => {
+                localStorage.removeItem("user");
+            });
+
+        }); 
+
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
