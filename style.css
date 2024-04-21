@@ -418,38 +418,33 @@ main .slideshow-container .fade {
 }
 
 #cocktails {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    list-style-type: none;
     display: flex; 
     flex-wrap: wrap; 
     justify-content: space-between; 
-    margin: 0 auto; 
-    padding: 20px; 
-    list-style-type: none; 
 }
 
 #cocktails li {
     flex-basis: calc(25% - 20px); 
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 20px;
     padding: 20px;
     list-style-type: none;
+    box-sizing: border-box; 
 }
 
 #cocktails h3 {
     margin-top: 0;
 }
 
-#cocktails p {
-    display: block;
-    height: 65px;
-    width: 100%;
-}
-
 #cocktails img {
+    max-width: 100%;
+    height: auto;
     display: block;
-    height: 400px;
-    width: 100%;
-    object-fit: cover;
     margin-top: 10px;
 }
 
@@ -462,7 +457,7 @@ main .slideshow-container .fade {
 
 .recipe-item {
     position: relative;
-}
+  }
 
 .recipe-item .bx-heart,
 .recipe-item .bxs-heart {
