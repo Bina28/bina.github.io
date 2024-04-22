@@ -71,11 +71,12 @@
     </header>
 
     <main>
-        <h2>Cocktail Generator</h2>
+        <h1>Cocktail Generator</h1>
     
         <div id="ingredients-container"></div>
+
         <br><br>
-        <button id="mix-button">Shape it up!</button>
+        <button id="mix-button">Shake it up!</button>
 
     </main>
 
@@ -114,30 +115,54 @@
             }
         }
 
-        // Display all ingredients as buttons on the webpage
-        async function displayIngredients() {
+        // Display ingredients categorized by type
+        async function displayIngredientsByType() {
             const allCocktails = await getAllCocktails();
             if (allCocktails) {
-                const allIngredients = new Set();
-                // Collect all unique ingredients from all recipes
+                const ingredientsByType = {
+                    alcohol: new Set(),
+                    mixer: new Set(),
+                    garnish: new Set()
+                };
+                // Have the ingredients categorized by type
                 Object.values(allCocktails).forEach(cocktail => {
                     if (cocktail.Ingredients) {
-                        Object.keys(cocktail.Ingredients).forEach(ingredient => {
-                            allIngredients.add(ingredient);
+                        Object.entries(cocktail.Ingredients).forEach(([ingredient, info]) => {
+                            const type = info.type || 'unknown'; 
+                            if (type === 'alcohol') {
+                                ingredientsByType.alcohol.add(ingredient);
+                            } else if (type === 'mixer') {
+                                ingredientsByType.mixer.add(ingredient);
+                            } else if (type === 'garnish') {
+                                ingredientsByType.garnish.add(ingredient);
+                            } else {
+                                console.warn(`Unknown type "${type}" for ingredient "${ingredient}".`);
+                            }
                         });
                     }
                 });
-                // Display each ingredient as a button on the webpage
-                const ingredientsContainer = document.getElementById('ingredients-container');
-                allIngredients.forEach(ingredient => {
-                    const button = document.createElement('button');
-                    button.textContent = ingredient;
-                    button.onclick = () => toggleIngredientSelection(ingredient);
-                    ingredientsContainer.appendChild(button);
-                });
+                // Display each category of ingredients as buttons on the webpage
+                displayIngredientButtons(ingredientsByType.alcohol, 'Alcohol');
+                displayIngredientButtons(ingredientsByType.mixer, 'Mixer');
+                displayIngredientButtons(ingredientsByType.garnish, 'Garnish');
             } else {
                 console.log("Failed to fetch cocktails.");
             }
+        }
+
+
+        // Display ingredient buttons for a specific category
+        function displayIngredientButtons(ingredients, category) {
+            const ingredientsContainer = document.getElementById('ingredients-container');
+            const categoryHeading = document.createElement('h2');
+            categoryHeading.textContent = category;
+            ingredientsContainer.appendChild(categoryHeading);
+            ingredients.forEach(ingredient => {
+                const button = document.createElement('button');
+                button.textContent = ingredient;
+                button.onclick = () => toggleIngredientSelection(ingredient);
+                ingredientsContainer.appendChild(button);
+            });
         }
 
 
@@ -150,7 +175,7 @@
 
 
         }
-    
+
 
         // Function to check which recipes can be made with selected ingredients
         async function checkAvailableRecipes() {
@@ -167,8 +192,10 @@
             document.getElementById('mix-button').addEventListener('click', checkAvailableRecipes);
         });
 
-        // Call displayIngredients when the page loads
-        window.onload = displayIngredients;
+        
+        // Call displayIngredientsByType when the page loads
+        window.onload = displayIngredientsByType;
+
 
 
 
