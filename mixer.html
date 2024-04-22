@@ -69,6 +69,16 @@
             </div>
         </div>
     </header>
+
+    <main>
+        <h2>Cocktail Generator</h2>
+    
+        <div id="ingredients-container"></div>
+        <br><br>
+        <button id="mix-button">Shape it up!</button>
+
+    </main>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getDatabase, ref, set, get, remove, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
@@ -91,11 +101,82 @@
         const auth = getAuth(app);
         const dbref = ref(db);
 
+
+        // Fetch all recipes from the database
+        async function getAllCocktails() {
+            try {
+                const recipesRef = child(dbref, 'Recipes');
+                const recipesSnapshot = await get(recipesRef);
+                return recipesSnapshot.val();
+            } catch (error) {
+                console.error("Error getting all cocktails:", error);
+                return null;
+            }
+        }
+
+        // Display all ingredients as buttons on the webpage
+        async function displayIngredients() {
+            const allCocktails = await getAllCocktails();
+            if (allCocktails) {
+                const allIngredients = new Set();
+                // Collect all unique ingredients from all recipes
+                Object.values(allCocktails).forEach(cocktail => {
+                    if (cocktail.Ingredients) {
+                        Object.keys(cocktail.Ingredients).forEach(ingredient => {
+                            allIngredients.add(ingredient);
+                        });
+                    }
+                });
+                // Display each ingredient as a button on the webpage
+                const ingredientsContainer = document.getElementById('ingredients-container');
+                allIngredients.forEach(ingredient => {
+                    const button = document.createElement('button');
+                    button.textContent = ingredient;
+                    button.onclick = () => toggleIngredientSelection(ingredient);
+                    ingredientsContainer.appendChild(button);
+                });
+            } else {
+                console.log("Failed to fetch cocktails.");
+            }
+        }
+
+
+        // Function to toggle ingredient selection
+        function toggleIngredientSelection(ingredient) {
+
+
+
+
+
+
+        }
+    
+
+        // Function to check which recipes can be made with selected ingredients
+        async function checkAvailableRecipes() {
+
+
+
+
+
+        }
+
+
+        // Event listener for the "mix" button
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('mix-button').addEventListener('click', checkAvailableRecipes);
+        });
+
+        // Call displayIngredients when the page loads
+        window.onload = displayIngredients;
+
+
+
+        // Event functions to logout
         document.addEventListener("DOMContentLoaded", function() {
             const logoutButton = document.getElementById('logout-btn');
             const loggedInUserDiv = document.getElementById('loggedInUser');
 
-            // Events function to logout
             logoutButton.addEventListener('click', e => {
                 e.preventDefault();
                 auth.signOut().then(() => {
@@ -112,7 +193,7 @@
             });
 
         }); 
-    
+
     </script>
     <script src="script.js"></script>
 </body>
