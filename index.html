@@ -126,22 +126,10 @@
                 <span class="dot" onclick="currentSlide(3)"></span>
             </div>
         </div>
-
-        <body>
-            <div id="cookiePopup" class="show">
-                <i class='bx bx-cookie'></i>
-                <p>
-                    This website collects cookies to deliver better user experience. 
-                    <a href="privacy.html">Cookie Policy & Privacy </a>
-                </p>
-                <button id="acceptCookie">Accept</button>
-    
-            </div>
-        </body>
     </main>
 
     <script>
-        // SLIDESHOW
+
         let slideIndex = 1;
         showSlides(slideIndex);
 
@@ -155,6 +143,7 @@
             showSlides(slideIndex = n);
         }
 
+        // Function slideshow
         function showSlides(n) {
             let i;
             let slides = document.getElementsByClassName("drinkSlides");
@@ -168,7 +157,7 @@
             dots[i].classList.remove("active");
             }
             slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].classLi
+            dots[slideIndex - 1].classList.add("active");
         }
 
     </script>
@@ -199,7 +188,7 @@
             const logoutButton = document.getElementById('logout-btn');
             const loggedInUserDiv = document.getElementById('loggedInUser');
 
-            // Events function to logout
+            // Event functions to logout
             logoutButton.addEventListener('click', e => {
                 e.preventDefault();
                 auth.signOut().then(() => {

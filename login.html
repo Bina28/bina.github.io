@@ -145,7 +145,7 @@
                 signInWithEmailAndPassword(auth, email.value, password.value)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    alert("Login successful c:");
+                    window.location.href = "saved.html";
                     localStorage.setItem("user", JSON.stringify(user)); 
                     setPersistence(auth, browserSessionPersistence)
                         .then(() => {
@@ -163,14 +163,7 @@
             loginForm.addEventListener('submit', signInUser); 
 
 
-            // Retrieve user authentication state
-            const storedUser = JSON.parse(localStorage.getItem('user'));
-            if (storedUser) {
-                alert("You are already logged in as " + storedUser.email);
-            }
-
-
-            // Event function to logout
+            // Events listener for logout
             logoutButton.addEventListener('click', e => {
                 e.preventDefault();
                 auth.signOut().then(() => {

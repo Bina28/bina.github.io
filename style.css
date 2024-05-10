@@ -77,7 +77,7 @@ i{
 .header-section .pages .item > a:hover > i,
 .header-section .pages .item > a:hover > span {
     color: rgb(100, 100, 100);
-}
+}/* Only item in header will light up, not the item inside "My account" dropdown list. FIXED! */
 
 .header-section .pages .item#active i,
 .header-section .pages .item#active span {
@@ -104,10 +104,11 @@ i{
 .header-section .dropdown-content > .dropdown-item:hover {
     background-color: #f9f9f9; 
 }
-  
+
+
+
 main {
-    margin: 0 40px;
-    margin-top: 5%;
+    margin: 4%;
 }
 
 main .container {
@@ -115,8 +116,8 @@ main .container {
     top: 10%;
     left: 50%; 
     transform: translate(-50%);
-    width: 500px;
-    height: 600px;
+    min-width: 500px;
+    min-height: 620px;
     background: #fff;
     text-align: center;
 }
@@ -124,6 +125,8 @@ main .container {
 main .container h1 {
     margin-top: 30px;
 }
+
+
 
 main .container #form {
     margin: 70px 30px 30px 30px;
@@ -218,6 +221,7 @@ main .container #form .button .btn {
     height: 80px;
     border-radius: 30px;
     border: none;
+    font-size: 16px;
     color: #ffffff;
     background: rgb(140, 180, 40, 0.8);
 }
@@ -231,12 +235,14 @@ main .container #form .button .btn:hover {
 
 main .container #form .form-links {
     position: relative;
-    margin-top: 50px;
+    margin: 20px;
 }
 
 main .container #form .form-links a:hover {
     color: #000;
 }
+
+
 
 main .welcome-section {
     position: relative;
@@ -286,10 +292,11 @@ main .welcome-section .welcome-content .explore-button:hover {
     transition: box-shadow 0.3s ease;
 }
 
+
+
 main .container-section {
     justify-content: space-between;
     padding: 20px; 
-    margin: 20px; 
 }
 
 main .container-section h1 {
@@ -304,6 +311,8 @@ main .container-section p {
     font-size: 18px; 
     margin: 5px 0 5px 0;
 }
+
+
 
 main .underlinedTitle {
     margin: 20px;
@@ -327,17 +336,13 @@ main .underlinedTitle p {
     font-size: 18px; 
 }
 
+
+
 main .slideshow-container {
-    max-width: calc(2 * 400px + 20px);
+    max-width: calc(2 * 400px + 20px); 
     max-height: 400px;
     position: relative;
     margin: auto;
-    justify-content: center; 
-    align-items: center;
-} 
-
-main .slideshow-container .drinkSlides {
-    display: none; 
 } 
 
 main .slideshow-container .drinkSlides img {
@@ -415,61 +420,138 @@ main .slideshow-container .fade {
   to {opacity: 1}
 }
 
-#cocktails {
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: space-between; 
-    margin: 0 auto; 
-    padding: 20px; 
-    list-style-type: none; 
+
+
+.recipe-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 25%;
+    padding: 10px;
 }
 
-#cocktails li {
-    flex-basis: calc(25% - 20px); 
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    padding: 20px;
-    list-style-type: none;
-}
-
-#cocktails h3 {
+.recipe-container h3 {
     margin-top: 0;
 }
 
-#cocktails p {
-    display: block;
-    height: 65px;
-    width: 100%;
+.recipe-container p {
+    min-height: 100px;
 }
 
-#cocktails img {
-    display: block;
-    height: 400px;
-    width: 100%;
+.recipe-container img {
     object-fit: cover;
-    margin-top: 10px;
+    height: 260px;
+    width: 100%;
 }
 
-#cocktails ul.ingredients,
-#cocktails ul.directions {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.recipe-item {
+.recipe-left {
     position: relative;
+    min-height: 460px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 20px;
 }
 
-.recipe-item .bx-heart,
-.recipe-item .bxs-heart {
+.recipe-left .bx-heart,
+.recipe-left .bxs-heart {
     position: absolute;
-    top: 20px; 
-    right: 20px; 
+    top: 20px;
+    right: 20px;
     cursor: pointer;
 }
 
+.recipe-right {
+    position: relative;
+    min-height: 460px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.recipe-right .bx-download {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+
+
+.savedRecipe-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.savedRecipe-container h3 {
+    margin-top: 0;
+}
+
+.savedRecipe-container p {
+    min-height: 90px;
+}
+
+.savedRecipe-container img {
+    object-fit: cover;
+    height: 240px;
+    width: 100%;
+}
+
+.savedRecipe-left {
+    flex: 0 0 23%;
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.savedRecipe-right {
+    flex: 0 0 46%;
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.savedRecipe-right .bx-heart,
+.savedRecipe-right .bxs-heart {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.savedRecipe-right .bx-download {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+
+
+
+
+@media screen and (min-width: 1600px) {
+    
+    .recipe-container {
+        width: 20%;
+    }
+
+    .recipe-container img {
+        object-fit: cover;
+        height: 300px;
+        width: 100%;
+    }
+
+    .savedRecipe-container p {
+        min-height: 70px;
+    }
+
+    .savedRecipe-container img {
+        height: 400px;
+    }
+    
+}
 
 
 
@@ -481,8 +563,7 @@ main .slideshow-container .fade {
     }
  
     main {
-        margin: 0;
-        margin-top: 5%;
+        margin: 8% 1%;
     }
 
     main .welcome-section .welcome-content .explore-button {
@@ -519,6 +600,7 @@ main .slideshow-container .fade {
     }
 
 } 
+
 
 
 @media screen and (max-width: 768px) {
@@ -594,6 +676,7 @@ main .slideshow-container .fade {
 } 
 
 
+
 @media screen and (max-width: 480px) {
 
     main .slideshow-container {
@@ -635,6 +718,8 @@ main .slideshow-container .fade {
         width: 10px;
     }
 } 
+
+
 
 #cookiePopup {
     background-color: #ffffff;
