@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <title>MixiePixie</title>
 </head>
@@ -71,12 +72,27 @@
     </header>
 
     <main>
-        <h1>Cocktail Generator</h1>
+       
     
-        <div id="ingredients-container"></div>
+        <div id="categories-container">
+             <h1>Cocktail Generator</h1>
+            <h2>Mixer</h2>
+            <div id="mixer-buttons" class="ingredient-button"></div>
+            <h2>Garnish</h2>
+            <div id="garnish-buttons" class="ingredient-button"></div>
+            <h2>Alcohol</h2>
+            <div id="alcohol-buttons" class="ingredient-button"></div>
+        </div>
+         
+             <button id="mix-button">Shake it up!</button>
+     
+              
+        <h2>Matching Cocktails</h2>
+        <div id="cocktails">
 
+        </div>   
         <br><br>
-        <button id="mix-button">Shake it up!</button>
+   
 
     </main>
 
@@ -101,100 +117,251 @@
         const db = getDatabase(); 
         const auth = getAuth(app);
         const dbref = ref(db);
+// Definer selectedIngredients globalt
+let selectedIngredients = JSON.parse(localStorage.getItem('selectedIngredients')) || [];
 
+function displayIngredientsForCategory(categoryName, selectedIngredients) {
+    const categoryRef = child(dbref, categoryName);
 
-        // Fetch all recipes from the database
-        async function getAllCocktails() {
-            try {
-                const recipesRef = child(dbref, 'Recipes');
-                const recipesSnapshot = await get(recipesRef);
-                return recipesSnapshot.val();
-            } catch (error) {
-                console.error("Error getting all cocktails:", error);
-                return null;
-            }
-        }
+    // Hent ingrediensene for den angitte kategorien
+    get(categoryRef).then((snapshot) => {
+        const categoryButtonsContainer = document.getElementById(`${categoryName.toLowerCase()}-buttons`);
+        categoryButtonsContainer.innerHTML = '';
 
-        // Display ingredients categorized by type
-        async function displayIngredientsByType() {
-            const allCocktails = await getAllCocktails();
-            if (allCocktails) {
-                const ingredientsByType = {
-                    alcohol: new Set(),
-                    mixer: new Set(),
-                    garnish: new Set()
-                };
-                // Have the ingredients categorized by type
-                Object.values(allCocktails).forEach(cocktail => {
-                    if (cocktail.Ingredients) {
-                        Object.entries(cocktail.Ingredients).forEach(([ingredient, info]) => {
-                            const type = info.type || 'unknown'; 
-                            if (type === 'alcohol') {
-                                ingredientsByType.alcohol.add(ingredient);
-                            } else if (type === 'mixer') {
-                                ingredientsByType.mixer.add(ingredient);
-                            } else if (type === 'garnish') {
-                                ingredientsByType.garnish.add(ingredient);
-                            } else {
-                                console.warn(`Unknown type "${type}" for ingredient "${ingredient}".`);
-                            }
-                        });
+        snapshot.forEach((childSnapshot) => {
+            const ingredientName = childSnapshot.key;
+            const ingredientButton = document.createElement('button');
+            ingredientButton.textContent = ingredientName;
+            ingredientButton.classList.add('ingredient-button');
+
+            // Legg til en lytter for hvert knappelement
+            ingredientButton.addEventListener('click', function() {
+                // Sjekk om knappen allerede er valgt
+                const isSelected = this.classList.contains('selected');
+
+                // Hvis knappen er valgt, fjern "selected" klassen og fjern ingrediensen fra localStorage
+                if (isSelected) {
+                    this.classList.remove('selected');
+                    const index = selectedIngredients.indexOf(ingredientName);
+                    if (index !== -1) {
+                        selectedIngredients.splice(index, 1);
                     }
-                });
-                // Display each category of ingredients as buttons on the webpage
-                displayIngredientButtons(ingredientsByType.alcohol, 'Alcohol');
-                displayIngredientButtons(ingredientsByType.mixer, 'Mixer');
-                displayIngredientButtons(ingredientsByType.garnish, 'Garnish');
-            } else {
-                console.log("Failed to fetch cocktails.");
+                } else {
+                    // Hvis knappen ikke er valgt, legg til "selected" klassen og legg til ingrediensen i localStorage
+                    this.classList.add('selected');
+                    selectedIngredients.push(ingredientName);
+                }
+
+                // Lagre de valgte ingrediensene i localStorage
+                localStorage.setItem('selectedIngredients', JSON.stringify(selectedIngredients));
+            });
+
+            // Sjekk om ingrediensen allerede er valgt og legg til "selected" klassen om nødvendig
+            if (selectedIngredients.includes(ingredientName)) {
+                ingredientButton.classList.add('selected');
             }
-        }
+
+            categoryButtonsContainer.appendChild(ingredientButton);
+        });
+    }).catch((error) => {
+        console.error(`Error getting ingredients for ${categoryName}:`, error);
+    });
+}
+
+function displayIngredientCategories() {
+    const categories = ["Alcohol", "Garnish", "Mixer"];
+
+    categories.forEach((category) => {
+        displayIngredientsForCategory(category, selectedIngredients); // Pass selectedIngredients som et argument
+    });
+}
+
+displayIngredientCategories();
 
 
-        // Display ingredient buttons for a specific category
-        function displayIngredientButtons(ingredients, category) {
-            const ingredientsContainer = document.getElementById('ingredients-container');
-            const categoryHeading = document.createElement('h2');
-            categoryHeading.textContent = category;
-            ingredientsContainer.appendChild(categoryHeading);
-            ingredients.forEach(ingredient => {
-                const button = document.createElement('button');
-                button.textContent = ingredient;
-                button.onclick = () => toggleIngredientSelection(ingredient);
-                ingredientsContainer.appendChild(button);
+
+
+
+
+function displayMatchingCocktailsWithImages(cocktails) {
+            const cocktailsContainer = document.getElementById('cocktails');
+            cocktailsContainer.innerHTML = ''; // Remove any existing cocktails
+
+            cocktails.forEach((cocktail) => {
+                let heading = document.createElement('h3');
+            heading.textContent = cocktail.Name ? cocktail.Name : "Unknown"; 
+
+            let image = document.createElement('img');
+            image.src = cocktail.image ? cocktail.image : ""; 
+            image.alt = cocktail.Name ? cocktail.Name : ""; 
+
+            let infoParagraph = document.createElement('p');
+            infoParagraph.textContent = cocktail.info ? cocktail.info : "No info available"; 
+
+            // Create button for viewing recipe
+            let viewRecipeButton = document.createElement('button');
+            viewRecipeButton.textContent = "View Recipe";
+            viewRecipeButton.addEventListener('click', function() {
+                ulIngredients.style.display = ulIngredients.style.display === 'none' ? 'block' : 'none'; 
+            });
+
+            // Create ul element for ingredients and directions and hide it initially
+            let ulIngredients = document.createElement('ul');
+            ulIngredients.classList.add('ingredients');
+            ulIngredients.style.display = 'none';
+
+            // Create list item for ingredients
+            let Ingredients = document.createElement('li');
+            Ingredients.innerHTML = "Ingredients: <br>";
+            if (cocktail.Ingredients) {
+                for (const [ingredient, amount] of Object.entries(cocktail.Ingredients)) {
+                    Ingredients.innerHTML += `${ingredient}: ${amount}<br>`;
+                }
+            }
+
+            // Create list item for directions
+            let Directions = document.createElement('li');
+            Directions.innerHTML = "Directions: <br>";
+            if (cocktail.Directions) {
+                for (const [key, direction] of Object.entries(cocktail.Directions)) {
+                    Directions.innerHTML += `${key}: ${direction}<br>`; 
+                }
+            }
+
+            // Append ingredients and directions list items to the ul element
+            ulIngredients.appendChild(Ingredients);
+            ulIngredients.appendChild(Directions);
+
+            // Append name, info, image, button, and ul elements to the list item
+            let listItem = document.createElement('li');
+            listItem.appendChild(heading);
+            listItem.appendChild(infoParagraph);
+            listItem.appendChild(image);
+            listItem.appendChild(viewRecipeButton);
+            listItem.appendChild(ulIngredients);
+            listItem.classList.add('recipe-item');
+
+            // Create the heart button
+            let heartButton = document.createElement('i');
+            heartButton.classList.add('bx', 'bx-heart');
+            heartButton.addEventListener('click', function() {
+                toggleSave(cocktail, heartButton, cocktailId);
+            });
+
+            // Append the heart button to the list item
+            listItem.appendChild(heartButton);
+
+            // Append recipe list item to the cocktails container
+        // Append recipe list item to the cocktails container
+cocktailsContainer.appendChild(listItem);
+
+
             });
         }
 
-
-        // Function to toggle ingredient selection
-        function toggleIngredientSelection(ingredient) {
+     
 
 
+        // Toggle save and unsave recipe
+        function toggleSave(cocktail, heartButton) {
+            const user = auth.currentUser; 
+            if (user) {
+                const userId = user.uid;
+                const userRef = ref(db, `UserSavedRecipes/${userId}/${cocktail.id}`);
 
-
-
-
+                // Check if the recipe is already saved
+                get(userRef).then(snapshot => {
+                    if (snapshot.exists()) {
+                        remove(userRef)
+                            .then(() => {
+                                console.log("Recipe removed");
+                                heartButton.classList.remove('bxs-heart');
+                            })
+                            .catch(error => {
+                                console.error("Error removing recipe:", error);
+                            });
+                    } else {
+                        set(userRef, cocktail)
+                            .then(() => {
+                                console.log("Recipe saved");
+                                heartButton.classList.add('bxs-heart');
+                            })
+                            .catch(error => {
+                                console.error("Error saving recipe:", error);
+                            });
+                    }
+                }).catch(error => {
+                    console.error("Error checking if recipe exists:", error);
+                });
+            } else {
+                alert("You need to log in");
+            }
         }
 
 
-        // Function to check which recipes can be made with selected ingredients
-        async function checkAvailableRecipes() {
+        function findMatchingCocktails() {
+    console.log("Finding matching cocktails...");
+    const selectedIngredients = JSON.parse(localStorage.getItem('selectedIngredients')) || [];
+    console.log("Selected Ingredients:", selectedIngredients);
+    const matchingCocktails = [];
 
+    const promises = [];
 
+    // Hent antall cocktailer fra databasen
+    get(child(dbref, 'Recipes')).then((snapshot) => {
+        let numCocktails = 0;
 
-
-
-        }
-
-
-        // Event listener for the "mix" button
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('mix-button').addEventListener('click', checkAvailableRecipes);
+        // Iterer gjennom hvert barnode i snapshotet for å telle antall cocktailer
+        snapshot.forEach(() => {
+            numCocktails++;
         });
+        console.log("Number of cocktails:", numCocktails);
 
-        
-        // Call displayIngredientsByType when the page loads
-        window.onload = displayIngredientsByType;
+        // Iterer gjennom riktig antall cocktailer
+        for (let cocktailId = 1; cocktailId <= numCocktails; cocktailId++) {
+            const cocktailRef = child(dbref, `Recipes/${cocktailId}`);
+            console.log("Checking cocktail:", cocktailId);
+
+            const promise = get(cocktailRef).then((snapshot) => {
+                console.log("Got snapshot for cocktail:", cocktailId);
+                const cocktailData = snapshot.val();
+
+                // Sjekk om cocktailData er null før du prøver å aksessere dataene
+                if (cocktailData) {
+                    const cocktailIngredients = Object.keys(cocktailData.Ingredients);
+                    const matchingIngredient = selectedIngredients.some((ingredient) => {
+                        return cocktailIngredients.includes(ingredient);
+                    });
+
+                    if (matchingIngredient) {
+                        matchingCocktails.push(cocktailData);
+                    }
+                }
+            }).catch((error) => {
+                console.error('Error getting cocktail data:', error);
+            });
+
+            promises.push(promise);
+        }
+
+        // Vent på at alle løftene skal fullføres før du viser meldingen
+        Promise.all(promises).then(() => {
+            console.log("Matching cocktails:", matchingCocktails);
+            displayMatchingCocktailsWithImages(matchingCocktails);
+        });
+    }).catch((error) => {
+        console.error('Error getting number of cocktails:', error);
+    });
+}
+
+
+
+
+// Legg til en lytter for "Shake It Up" -knappen
+const shakeItUpButton = document.getElementById('mix-button');
+shakeItUpButton.addEventListener('click', findMatchingCocktails);
+
+
 
 
 
@@ -220,8 +387,13 @@
             });
 
         }); 
+      
 
+
+      
     </script>
+
+    
     <script src="script.js"></script>
 </body>
 </html>

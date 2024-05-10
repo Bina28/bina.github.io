@@ -813,3 +813,48 @@ main .slideshow-container .fade {
     right: 2em;
 
 }
+.ingredient-button {
+    /* Legg til din generelle stil for ingrediensknappene her */
+    /* For eksempel: */
+    background-color: #ffffff;
+    color:  rgb(50, 50, 50);
+    
+    padding: 8px 16px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.ingredient-button.selected {
+    /* Legg til spesifikk stil for valgte ingrediensknapper her */
+    background-color:  #ca7c4c; /* Grønn farge */
+    color: #ffffff; /* Hvite tekstfarge */
+}
+
+#categories-container {
+    margin-bottom: 20px; /* Legg til en bunnmargin på 20 piksler mellom kategorikontaineren og knappen */
+    color:  rgb(50, 50, 50);
+}
+
+#categories-container h2 {
+    margin-top: 20px;
+}
+#categories-container h2 {
+    margin-bottom: 10px; /* Legg til en bunnmargin på 10 piksler mellom hver overskrift og knappene */
+}
+
+.ingredient-button {
+    /* Din generelle stil for ingrediensknappene */
+    /* For eksempel: */
+    margin-right: 10px; /* Legg til en høyremargin på 10 piksler mellom hver ingrediensknapp */
+}
+
+#mix-button {
+    margin-top: 20px ;
+   margin-bottom: 20px;
+}
+
+#cocktails {
+    margin-top: 20px; /* Legg til en toppmargin på 20 piksler over "Matching Cocktails" seksjonen */
+}
+
