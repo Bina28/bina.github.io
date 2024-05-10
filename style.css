@@ -437,6 +437,7 @@ main .slideshow-container .fade {
 
 .recipe-container p {
     min-height: 100px;
+    width: 235px;
 }
 
 .recipe-container img {
@@ -531,7 +532,7 @@ main .slideshow-container .fade {
 
 
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 1440px) {
     
     .recipe-container {
         width: 20%;
@@ -555,7 +556,7 @@ main .slideshow-container .fade {
 
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1280px) {
     
     .header-section{
         margin: 0;
@@ -600,6 +601,21 @@ main .slideshow-container .fade {
     }
 
 } 
+
+
+
+@media screen and (max-width: 1080px) {
+    
+    .recipe-container {
+        width: 33%;
+    }
+
+    .recipe-container p {
+        min-height: 90px;
+        width: 210px;
+    }
+    
+}
 
 
 
@@ -673,6 +689,14 @@ main .slideshow-container .fade {
         width: 12px;
     }
 
+    .recipe-container {
+        width: 50%;
+    }
+
+    .recipe-container p {
+        width: auto;
+    }
+
 } 
 
 
@@ -716,6 +740,15 @@ main .slideshow-container .fade {
     main .dot{
         height: 10px;
         width: 10px;
+    }
+
+    .recipe-container {
+        width: 100%;
+    }
+
+    .recipe-container p {
+        min-height: 70px;
+        width: 280px;
     }
 } 
 
