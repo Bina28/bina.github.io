@@ -75,12 +75,12 @@
     <main>
         <div id="categories-container">
             <h1>Cocktail Generator</h1>
+            <h2><span class="fancy">Alcohol</span></h2>
+            <button id="alcohol-buttons" class="ingredient-button"></button>
             <h2><span class="fancy">Mixer</span></h2>
             <button id="mixer-buttons" class="ingredient-button"></button>
             <h2><span class="fancy">Garnish</span></h2>
             <button id="garnish-buttons" class="ingredient-button"></button>
-            <h2><span class="fancy">Alcohol</span></h2>
-            <button id="alcohol-buttons" class="ingredient-button"></button>
             <button id="mix-button">Shake it up!</button>
         </div>
         <div id="Recipes"></div>
@@ -110,11 +110,10 @@
         const dbref = ref(db);
 
 
-        let RecipesContainer = document.getElementById("Recipes");
-        // Definer selectedIngredients globalt
+        let RecipesContainer = document.getElementById("Recipes");       
         let selectedIngredients = JSON.parse(localStorage.getItem('selectedIngredients')) || [];
 
-
+        // Display the ingredients associated with a specific category
         function displayIngredientsForCategory(categoryName, selectedIngredients) {
             const categoryRef = child(dbref, categoryName);
 
@@ -150,7 +149,7 @@
                 });
             })
         }
-
+        
         function displayIngredientCategories() {
             const categories = ["Alcohol", "Garnish", "Mixer"];
 
@@ -161,114 +160,137 @@
 
         displayIngredientCategories();
 
-
+        // Display matching cocktails
         function displayMatchingCocktailsWithImages(recipes, recipeId) {
-            RecipesContainer.innerHTML = ''; // Remove any existing cocktails
 
-            let matchingCocktailsHeading = document.createElement('h2');
-            matchingCocktailsHeading.textContent = "Matching Cocktails";
-            matchingCocktailsHeading.classList.add('matchingCocktailsHeading');
-            RecipesContainer.appendChild(matchingCocktailsHeading);
+            const maxCocktailsPerPage = 5;
+            const totalPages = Math.ceil(recipes.length / maxCocktailsPerPage);
+            let currentPage = 1;
+
+            displayCocktailsForPage(currentPage);
+            function displayCocktailsForPage(page) {
+                const startIndex = (page - 1) * maxCocktailsPerPage;
+                const endIndex = Math.min(startIndex + maxCocktailsPerPage, recipes.length);
+
+                if (startIndex === 0) {
+                    let matchingCocktailsHeading = document.createElement('h2');
+                    matchingCocktailsHeading.textContent = "Matching Cocktails";
+                    matchingCocktailsHeading.classList.add('matchingCocktailsHeading');
+                    RecipesContainer.appendChild(matchingCocktailsHeading);
+                }
 
 
-            recipes.forEach((recipe) => {
-                let listItem = document.createElement('div');
-                listItem.classList.add('recipe-container');
+                for (let i = startIndex; i < endIndex; i++) {
+                    let recipe = recipes[i];
+                    let listItem = document.createElement('div');
+                    listItem.classList.add('recipe-container');
 
-                let leftSide = document.createElement('div');
-                leftSide.classList.add('recipe-left');
+                    let leftSide = document.createElement('div');
+                    leftSide.classList.add('recipe-left');
 
-                let heading = document.createElement('h3');
-                heading.textContent = recipe.Name ? recipe.Name : "Unknown";
+                    let heading = document.createElement('h3');
+                    heading.textContent = recipe.Name ? recipe.Name : "Unknown";
 
-                let infoParagraph = document.createElement('p');
-                infoParagraph.textContent = recipe.info ? recipe.info : "No info available";
+                    let infoParagraph = document.createElement('p');
+                    infoParagraph.textContent = recipe.info ? recipe.info : "No info available";
 
-                let image = document.createElement('img');
-                image.src = recipe.image ? recipe.image : "";
-                image.alt = recipe.Name ? recipe.Name : "";
+                    let image = document.createElement('img');
+                    image.src = recipe.image ? recipe.image : "";
+                    image.alt = recipe.Name ? recipe.Name : "";
 
-                // Create heart button
-                let heartButton = document.createElement('i');
-                heartButton.classList.add('bx', 'bx-heart');
-                heartButton.addEventListener('click', function () {
-                    event.stopPropagation();
-                    toggleSave(recipe, heartButton, recipeId);
-                });
-
-                // Check if user is logged in
-                const user = auth.currentUser;
-                if (user) {
-                    const userId = user.uid;
-                    const userRecipeRef = ref(db, `UserSavedRecipes/${userId}/${recipeId}`);
-                    get(userRecipeRef).then((snapshot) => {
-                        if (snapshot.exists()) {
-                            heartButton.classList.add('bxs-heart');
-                        } else {
-                            heartButton.classList.add('bx-heart');
-                        }
-                    }).catch((error) => {
-                        console.error("Error checking if recipe exists:", error);
+                    // Create heart button
+                    let heartButton = document.createElement('i');
+                    heartButton.classList.add('bx', 'bx-heart');
+                    heartButton.addEventListener('click', function () {
+                        event.stopPropagation();
+                        toggleSave(recipe, heartButton, recipeId);
                     });
-                } else {
-                    heartButton.classList.add('bx-heart'); // Default heart button if user is not logged in
-                }
 
-
-                leftSide.appendChild(heading);
-                leftSide.appendChild(infoParagraph);
-                leftSide.appendChild(image);
-                leftSide.appendChild(heartButton);
-
-                let rightSide = document.createElement('div');
-                rightSide.classList.add('recipe-right');
-                rightSide.style.display = 'none';
-                rightSide.style.listStyleType = 'none';
-
-                let Ingredients = document.createElement('li');
-                Ingredients.innerHTML = "<b>Ingredients</b><br>";
-                if (recipe.Ingredients) {
-                    for (const [ingredient, amount] of Object.entries(recipe.Ingredients)) {
-                        Ingredients.innerHTML += `${ingredient}: ${amount}<br>`;
+                    // Check if user is logged in
+                    const user = auth.currentUser;
+                    if (user) {
+                        const userId = user.uid;
+                        const userRecipeRef = ref(db, `UserSavedRecipes/${userId}/${recipeId}`);
+                        get(userRecipeRef).then((snapshot) => {
+                            if (snapshot.exists()) {
+                                heartButton.classList.add('bxs-heart');
+                            } else {
+                                heartButton.classList.add('bx-heart');
+                            }
+                        }).catch((error) => {
+                            console.error("Error checking if recipe exists:", error);
+                        });
+                    } else {
+                        heartButton.classList.add('bx-heart'); // Default heart button if user is not logged in
                     }
-                }
 
-                let Directions = document.createElement('li');
-                Directions.innerHTML = "<br><b>Directions</b><br>";
-                if (recipe.Directions) {
-                    for (const [key, direction] of Object.entries(recipe.Directions)) {
-                        Directions.innerHTML += `${key}: ${direction}<br>`;
+
+                    leftSide.appendChild(heading);
+                    leftSide.appendChild(infoParagraph);
+                    leftSide.appendChild(image);
+                    leftSide.appendChild(heartButton);
+
+                    let rightSide = document.createElement('div');
+                    rightSide.classList.add('recipe-right');
+                    rightSide.style.display = 'none';
+                    rightSide.style.listStyleType = 'none';
+
+                    let Ingredients = document.createElement('li');
+                    Ingredients.innerHTML = "<b>Ingredients</b><br>";
+                    if (recipe.Ingredients) {
+                        for (const [ingredient, amount] of Object.entries(recipe.Ingredients)) {
+                            Ingredients.innerHTML += `${ingredient}: ${amount}<br>`;
+                        }
                     }
+
+                    let Directions = document.createElement('li');
+                    Directions.innerHTML = "<br><b>Directions</b><br>";
+                    if (recipe.Directions) {
+                        for (const [key, direction] of Object.entries(recipe.Directions)) {
+                            Directions.innerHTML += `${key}: ${direction}<br>`;
+                        }
+                    }
+
+                    // Create a download button
+                    let download = document.createElement('i');
+                    download.classList.add('bx', 'bx-download');
+                    download.addEventListener('click', function () {
+                        event.stopPropagation();
+                        downloadRecipeAsImage(rightSide);
+                    });
+
+                    rightSide.appendChild(Ingredients);
+                    rightSide.appendChild(Directions);
+                    rightSide.appendChild(download);
+
+                    leftSide.addEventListener('click', function () {
+                        toggleRecipeSide(leftSide, rightSide);
+                    });
+
+                 
+                    listItem.appendChild(leftSide);
+                    listItem.appendChild(rightSide);
+
+                    RecipesContainer.appendChild(listItem);
                 }
 
-                // Create a download button
-                let download = document.createElement('i');
-                download.classList.add('bx', 'bx-download');
-                download.addEventListener('click', function () {
-                    event.stopPropagation();
-                    downloadRecipeAsImage(rightSide);
+                if (endIndex < recipes.length) {
+                    addShowMoreButton();
+                }
+            }
+
+            //Button to display additional content when clicked
+            function addShowMoreButton() {
+                let showMoreButton = document.createElement('button');
+                showMoreButton.textContent = 'See more';
+                showMoreButton.classList.add('show-more-button');
+                showMoreButton.addEventListener('click', function () {
+                    currentPage++;
+                    displayCocktailsForPage(currentPage);
+                    this.remove();
                 });
-
-                rightSide.appendChild(Ingredients);
-                rightSide.appendChild(Directions);
-                rightSide.appendChild(download);
-
-                // Event listeners to toggle sides when clicked
-                leftSide.addEventListener('click', function () {
-                    toggleRecipeSide(leftSide, rightSide);
-                });
-
-                rightSide.addEventListener('click', function () {
-                    toggleRecipeSide(leftSide, rightSide);
-                });
-
-                listItem.appendChild(leftSide);
-                listItem.appendChild(rightSide);
-
-                RecipesContainer.appendChild(listItem);
-
-            });
-
+                RecipesContainer.appendChild(showMoreButton);
+            }
 
             // Toggle between recipe sides
             function toggleRecipeSide(leftSide, rightSide) {
@@ -280,6 +302,7 @@
                     rightSide.style.display = 'block';
                 }
             }
+
             // Downlodd as img function
             function downloadRecipeAsImage(recipeContainer) {
                 html2canvas(recipeContainer).then(function (canvas) {
@@ -351,7 +374,7 @@
             });
         });
 
-
+        // Identifies cocktails that match selected ingredients and displays them
         function findMatchingCocktails() {
             const selectedIngredients = JSON.parse(localStorage.getItem('selectedIngredients')) || [];
             const matchingCocktails = [];
@@ -395,18 +418,20 @@
         }
 
         const shakeItUpButton = document.getElementById('mix-button');
-
-        shakeItUpButton.addEventListener('click', function () {
+        shakeItUpButton.addEventListener('click', function () {       
             shakeItUpButton.classList.add('shake');
+          
             setTimeout(function () {
                 shakeItUpButton.classList.remove('shake');
-            }, 3000); 
+            }, 3000);
+            RecipesContainer.innerHTML = '';           
+            document.getElementById('Recipes').scrollIntoView({ behavior: 'smooth' });
+           
+            findMatchingCocktails();
         });
-        shakeItUpButton.addEventListener('click', findMatchingCocktails);
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
-
 </html>
