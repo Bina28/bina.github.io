@@ -108,7 +108,7 @@ i{
 
 
 main {
-    margin: 4%;
+    margin: 8% 1%;
 }
 
 main .container {
@@ -122,11 +122,9 @@ main .container {
     text-align: center;
 }
 
-main .container h1 {
-    margin-top: 30px;
+main .container h1{
+    margin-top: 50px;
 }
-
-
 
 main .container #form {
     margin: 70px 30px 30px 30px;
@@ -296,7 +294,7 @@ main .welcome-section .welcome-content .explore-button:hover {
 
 main .container-section {
     justify-content: space-between;
-    padding: 20px; 
+    padding: 10px; 
 }
 
 main .container-section h1 {
@@ -470,6 +468,7 @@ main .slideshow-container .fade {
     border-radius: 10px;
     border: 1px solid #ccc;
     padding: 20px;
+    box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.1);
 }
 
 .recipe-right .bx-download {
@@ -484,7 +483,7 @@ main .slideshow-container .fade {
 .savedRecipe-container {
     display: flex;
     justify-content: center;
-    padding: 20px;
+    padding: 20px 10px;
 }
 
 .savedRecipe-container h3 {
@@ -506,6 +505,7 @@ main .slideshow-container .fade {
     position: relative;
     border: 1px solid #ccc;
     padding: 20px;
+    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.1);
 }
 
 .savedRecipe-right {
@@ -513,6 +513,7 @@ main .slideshow-container .fade {
     position: relative;
     border: 1px solid #ccc;
     padding: 20px;
+    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.1);
 }
 
 .savedRecipe-right .bx-heart,
@@ -779,15 +780,7 @@ main .slideshow-container .fade {
         margin: 0;
         padding: 5px 0 5px 0;
     }
- 
-    main {
-        margin: 8% 1%;
-    }
-
-    main .welcome-section .welcome-content .explore-button {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
+    
     main .slideshow-container {
         max-width: calc(2 * 350px + 20px);
         max-height: 350px;
@@ -822,7 +815,7 @@ main .slideshow-container .fade {
 
 
 @media screen and (max-width: 1080px) {
-    
+
     .recipe-container {
         width: 33%;
     }
@@ -830,6 +823,14 @@ main .slideshow-container .fade {
     .recipe-container p {
         min-height: 90px;
         width: 210px;
+    }
+
+    .savedRecipe-left {
+        flex: 0 0 30%;
+    }
+
+    .savedRecipe-right {
+        flex: 0 0 60%;
     }
     
 }
@@ -914,11 +915,40 @@ main .slideshow-container .fade {
         width: auto;
     }
 
+    .savedRecipe-container p {
+        display:none;
+    }
+
+    .savedRecipe-left {
+        flex: 0 0 30%;
+        padding: 15px;
+    }
+
+    .savedRecipe-right {
+        flex: 0 0 70%;
+        padding: 15px;
+    }
+    
+    .savedRecipe-right .bx-heart,
+    .savedRecipe-right .bxs-heart {
+        top: 15px;
+        right: 15px;
+    }
+
+    .savedRecipe-right .bx-download {
+        bottom: 15px;
+        right: 15px;
+    }
+
 } 
 
 
 
 @media screen and (max-width: 480px) {
+
+    main {
+        margin: 15% 0;
+    }
 
     main .slideshow-container {
         max-width: calc(2 * 350px + 20px);
@@ -966,5 +996,34 @@ main .slideshow-container .fade {
     .recipe-container p {
         min-height: 70px;
         width: 280px;
+    }
+
+    .savedRecipe-container h3 {
+        margin-top: 10px;
+    }
+
+    .savedRecipe-container img {
+        display: none;
+    }
+
+    .savedRecipe-left {
+        flex: 0 0 25%;
+        padding: 10px;
+    }
+
+    .savedRecipe-right {
+        flex: 0 0 75%;
+        padding: 10px;
+    }
+
+    .savedRecipe-right .bx-heart,
+    .savedRecipe-right .bxs-heart {
+        top: 10px;
+        right: 10px;
+    }
+
+    .savedRecipe-right .bx-download {
+        bottom: 10px;
+        right: 10px;
     }
 } 
