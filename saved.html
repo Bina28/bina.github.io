@@ -113,7 +113,7 @@
                 getSavedRecipes();
             } else {
                 console.log("User is not logged in");
-                savedRecipesContainer.innerHTML = "Please log in to view saved recipes.";
+                window.location.href = "login.html";
             }
         });
 
