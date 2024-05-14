@@ -160,17 +160,74 @@
 
         displayIngredientCategories();
 
+
+        // Identifies cocktails that match selected ingredients and displays them
+        function findMatchingCocktails() {
+            const selectedIngredients = JSON.parse(localStorage.getItem('selectedIngredients')) || [];
+            const matchingCocktails = [];
+            const promises = [];
+
+            get(child(dbref, 'Recipes')).then((snapshot) => {
+                let numCocktails = 0;
+                snapshot.forEach(() => {
+                    numCocktails++;
+                });
+
+                for (let recipeId = 1; recipeId <= numCocktails; recipeId++) {
+                    const cocktailRef = child(dbref, `Recipes/${recipeId}`);
+
+                    const promise = get(cocktailRef).then((snapshot) => {
+                        const recipe = snapshot.val();
+
+                        if (recipe) {
+                            const cocktailIngredients = Object.keys(recipe.Ingredients);
+                            const matchingIngredient = selectedIngredients.some((ingredient) => {
+                                return cocktailIngredients.includes(ingredient);
+                            });
+
+                            if (matchingIngredient) {
+                                matchingCocktails.push(recipe);
+                            }
+                        }
+                    })
+
+                    promises.push(promise);
+                }
+
+                Promise.all(promises).then(() => {
+                    if (matchingCocktails.length === 0) {
+                        alert("There are no matching cocktails. Please try again.");
+                    } else {
+                        displayMatchingCocktailsWithImages(matchingCocktails);
+                    }
+                });
+            })
+        }
+
+        const shakeItUpButton = document.getElementById('mix-button');
+        shakeItUpButton.addEventListener('click', function () {       
+            shakeItUpButton.classList.add('shake');
+          
+            setTimeout(function () {
+                shakeItUpButton.classList.remove('shake');
+            }, 3000);
+            RecipesContainer.innerHTML = '';           
+            document.getElementById('Recipes').scrollIntoView({ behavior: 'smooth' });
+           
+            findMatchingCocktails();
+        });
+
+
         // Display matching cocktails
         function displayMatchingCocktailsWithImages(recipes, recipeId) {
 
-            const maxCocktailsPerPage = 5;
-            const totalPages = Math.ceil(recipes.length / maxCocktailsPerPage);
+            const totalPages = Math.ceil(recipes.length / 5);
             let currentPage = 1;
 
             displayCocktailsForPage(currentPage);
             function displayCocktailsForPage(page) {
-                const startIndex = (page - 1) * maxCocktailsPerPage;
-                const endIndex = Math.min(startIndex + maxCocktailsPerPage, recipes.length);
+                const startIndex = (page - 1) * 5;
+                const endIndex = Math.min(startIndex + 5, recipes.length);
 
                 if (startIndex === 0) {
                     let matchingCocktailsHeading = document.createElement('h2');
@@ -374,61 +431,6 @@
             });
         });
 
-        // Identifies cocktails that match selected ingredients and displays them
-        function findMatchingCocktails() {
-            const selectedIngredients = JSON.parse(localStorage.getItem('selectedIngredients')) || [];
-            const matchingCocktails = [];
-            const promises = [];
-
-            get(child(dbref, 'Recipes')).then((snapshot) => {
-                let numCocktails = 0;
-                snapshot.forEach(() => {
-                    numCocktails++;
-                });
-
-                for (let cocktailId = 1; cocktailId <= numCocktails; cocktailId++) {
-                    const cocktailRef = child(dbref, `Recipes/${cocktailId}`);
-
-                    const promise = get(cocktailRef).then((snapshot) => {
-                        const cocktailData = snapshot.val();
-
-                        if (cocktailData) {
-                            const cocktailIngredients = Object.keys(cocktailData.Ingredients);
-                            const matchingIngredient = selectedIngredients.some((ingredient) => {
-                                return cocktailIngredients.includes(ingredient);
-                            });
-
-                            if (matchingIngredient) {
-                                matchingCocktails.push(cocktailData);
-                            }
-                        }
-                    })
-
-                    promises.push(promise);
-                }
-
-                Promise.all(promises).then(() => {
-                    if (matchingCocktails.length === 0) {
-                        alert("There are no matching cocktails. Please try again.");
-                    } else {
-                        displayMatchingCocktailsWithImages(matchingCocktails);
-                    }
-                });
-            })
-        }
-
-        const shakeItUpButton = document.getElementById('mix-button');
-        shakeItUpButton.addEventListener('click', function () {       
-            shakeItUpButton.classList.add('shake');
-          
-            setTimeout(function () {
-                shakeItUpButton.classList.remove('shake');
-            }, 3000);
-            RecipesContainer.innerHTML = '';           
-            document.getElementById('Recipes').scrollIntoView({ behavior: 'smooth' });
-           
-            findMatchingCocktails();
-        });
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
