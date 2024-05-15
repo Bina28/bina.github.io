@@ -657,29 +657,12 @@ main .slideshow-container .fade {
 }
 
 @keyframes shake {
-    0% {
-        transform: translateX(0);
-    }
-
-    20% {
-        transform: translateX(-10px) rotate(-10deg);
-    }
-
-    40% {
-        transform: translateX(10px) rotate(10deg);
-    }
-
-    60% {
-        transform: translateX(-10px) rotate(-10deg);
-    }
-
-    80% {
-        transform: translateX(10px) rotate(10deg);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
+    0% {transform: translateX(0);}
+    20% {transform: translateX(-10px) rotate(-10deg);}
+    40% {transform: translateX(10px) rotate(10deg);}
+    60% {transform: translateX(-10px) rotate(-10deg);}
+    80% {transform: translateX(10px) rotate(10deg);}
+    100% {transform: translateX(0);}
 }
 
 #mix-button.shake {
@@ -700,7 +683,11 @@ main .slideshow-container .fade {
     padding: 8px 16px;
     cursor: pointer;
     border-radius: 8px;
+<<<<<<< Updated upstream
     margin-right: 10px;
+=======
+    align-self: center;
+>>>>>>> Stashed changes
 }
 
 #reset-button {
