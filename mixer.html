@@ -81,7 +81,10 @@
             <button id="mixer-buttons" class="ingredient-button"></button>
             <h2><span class="fancy">Garnish</span></h2>
             <button id="garnish-buttons" class="ingredient-button"></button>
-            <button id="mix-button">Shake it up!</button>
+            <div id="button-container">
+                <button id="mix-button">Shake it up!</button>
+                <button id="reset-button">Reset Ingredients</button>
+            </div>
         </div>
         <div id="Recipes"></div>
         <br><br>
@@ -110,7 +113,7 @@
         const dbref = ref(db);
 
 
-        let RecipesContainer = document.getElementById("Recipes");       
+        let RecipesContainer = document.getElementById("Recipes");
         let selectedIngredients = JSON.parse(localStorage.getItem('selectedIngredients')) || [];
 
         // Display the ingredients associated with a specific category
@@ -149,7 +152,7 @@
                 });
             })
         }
-        
+
         function displayIngredientCategories() {
             const categories = ["Alcohol", "Garnish", "Mixer"];
 
@@ -205,15 +208,15 @@
         }
 
         const shakeItUpButton = document.getElementById('mix-button');
-        shakeItUpButton.addEventListener('click', function () {       
+        shakeItUpButton.addEventListener('click', function () {
             shakeItUpButton.classList.add('shake');
-          
+
             setTimeout(function () {
                 shakeItUpButton.classList.remove('shake');
             }, 3000);
-            RecipesContainer.innerHTML = '';           
+            RecipesContainer.innerHTML = '';
             document.getElementById('Recipes').scrollIntoView({ behavior: 'smooth' });
-           
+
             findMatchingCocktails();
         });
 
@@ -320,11 +323,16 @@
                     rightSide.appendChild(Directions);
                     rightSide.appendChild(download);
 
+
+                    // Event listeners to toggle sides when clicked
                     leftSide.addEventListener('click', function () {
                         toggleRecipeSide(leftSide, rightSide);
                     });
 
-                 
+                    rightSide.addEventListener('click', function () {
+                        toggleRecipeSide(leftSide, rightSide);
+                    });
+
                     listItem.appendChild(leftSide);
                     listItem.appendChild(rightSide);
 
@@ -430,9 +438,22 @@
         window.addEventListener('beforeunload', () => {
             localStorage.clear();
         });
+        const resetButton = document.getElementById('reset-button');
+        resetButton.addEventListener('click', function () {
+
+            selectedIngredients = [];
+            localStorage.removeItem('selectedIngredients');
+
+     
+            const categoryButtons = document.querySelectorAll('.ingredient-button');
+            categoryButtons.forEach(button => {
+                button.classList.remove('selected');
+            });
+        });
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

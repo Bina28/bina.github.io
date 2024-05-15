@@ -686,19 +686,32 @@ main .slideshow-container .fade {
     animation: shake 0.5s ease-in-out;
 }
 
-#mix-button {
-    font-size: 16px;
+#button-container {
+    display: flex;
+    justify-content: space-between;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+#mix-button {
+    font-size: 16px;
     background-color: #D94436;
     color: white;
     padding: 8px 16px;
-    margin: 4px;
     cursor: pointer;
     border-radius: 8px;
-    align-self: center;
-
+    margin-right: 10px;
 }
+
+#reset-button {
+    font-size: 16px;
+    background-color: #FFAB57;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
 
 .show-more-button {
     font-size: 16px;
