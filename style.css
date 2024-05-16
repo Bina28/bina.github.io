@@ -683,7 +683,10 @@ main .slideshow-container .fade {
     padding: 8px 16px;
     cursor: pointer;
     border-radius: 8px;
+<<<<<<< Updated upstream
     align-self: center;
+=======
+>>>>>>> Stashed changes
     margin-right: 10px;
 }
 
