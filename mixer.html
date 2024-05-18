@@ -72,17 +72,26 @@
         </div>
     </header>
 
-    <main>
+    <main id="mixer">
+        <div id="introduction-section">
+            <img id="mixer-image" src="images\mixerside.png" alt="Mixer Image">
+            <div class="mixer-content">
+                <h2>Cocktail Generator</h2>
+                <p> Choose ingredients effortlessly and let MixiePixie<br>
+                    transforms your selection into a pesonalized cocktail<br>
+                    recipes. Shake up your style, savor your creativity, and<br>
+                    cheers to every sip becoming a masterpiece at<br>
+                    MixiePixie!</p>
+            </div>
+        </div>
+
         <div id="categories-container">
-            <h1>Cocktail Generator</h1>
-
-            <h2><span class="fancy">Alcohol</span></h2>
+            <h4>Choose your liqours:</h4>
             <button id="alcohol-buttons" class="ingredient-button"></button>
-            <h2><span class="fancy">Mixer</span></h2>
+            <h4>Choose your mixers:</h4>
             <button id="mixer-buttons" class="ingredient-button"></button>
-            <h2><span class="fancy">Garnish</span></h2>
+            <h4>Choose your garnish:</h4>
             <button id="garnish-buttons" class="ingredient-button"></button>
-
             <div id="button-container">
                 <button id="mix-button">Shake it up!</button>
                 <button id="reset-button">Start over</button>
@@ -186,15 +195,15 @@
 
         //Reset-button
         const resetButton = document.getElementById('reset-button');
-            resetButton.addEventListener('click', function () {
+        resetButton.addEventListener('click', function () {
 
-                selectedIngredients = [];
-                localStorage.removeItem('selectedIngredients');
+            selectedIngredients = [];
+            localStorage.removeItem('selectedIngredients');
 
-                const categoryButtons = document.querySelectorAll('.ingredient-button');
-                categoryButtons.forEach(button => {
-                    button.classList.remove('selected');
-                });
+            const categoryButtons = document.querySelectorAll('.ingredient-button');
+            categoryButtons.forEach(button => {
+                button.classList.remove('selected');
+            });
         });
 
 
@@ -223,7 +232,7 @@
                             });
 
                             if (matchingIngredient) {
-                                matchingCocktails.push(recipe);
+                                matchingCocktails.push({ recipe, recipeId });
                             }
                         }
                     })
@@ -245,13 +254,13 @@
         // Display matching cocktails
         function displayMatchingCocktailsWithImages(recipes, recipeId) {
 
-            const totalPages = Math.ceil(recipes.length / 4);
+            const totalPages = Math.ceil(recipes.length / 5);
             let currentPage = 1;
 
             displayCocktailsForPage(currentPage);
             function displayCocktailsForPage(page) {
-                const startIndex = (page - 1) * 4;
-                const endIndex = Math.min(startIndex + 4, recipes.length);
+                const startIndex = (page - 1) * 5;
+                const endIndex = Math.min(startIndex + 5, recipes.length);
 
                 if (startIndex === 0) {
                     let matchingCocktailsHeading = document.createElement('h2');
@@ -262,7 +271,7 @@
 
 
                 for (let i = startIndex; i < endIndex; i++) {
-                    let recipe = recipes[i];
+                    let { recipe, recipeId } = recipes[i];
                     let listItem = document.createElement('div');
                     listItem.classList.add('recipe-container');
 
@@ -364,10 +373,7 @@
                     addShowMoreButton();
                 }
             }
-        }
-
-
-        //Button to display additional content when clicked
+               //Button to display additional content when clicked
         function addShowMoreButton() {
             let showMoreButton = document.createElement('button');
             showMoreButton.textContent = 'See more';
@@ -379,6 +385,10 @@
             });
             RecipesContainer.appendChild(showMoreButton);
         }
+        }
+
+
+     
 
 
         // Toggle between recipe sides
@@ -403,7 +413,6 @@
                 link.click();
             });
         }
-
 
         // Toggle save and unsave recipe
         function toggleSave(recipe, heartButton, recipeId) {
@@ -442,8 +451,6 @@
                 alert("You need to log in");
             }
         }
-
-
         // Events function to logout
         document.addEventListener("DOMContentLoaded", function () {
             const logoutButton = document.getElementById('logout-btn');
