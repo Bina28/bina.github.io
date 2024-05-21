@@ -531,8 +531,6 @@ main .slideshow-container .fade {
     cursor: pointer;
 }
 
-
-
 #cookiePopup {
     background-color: #ffffff;
     position: fixed;
@@ -567,6 +565,12 @@ main .slideshow-container .fade {
     margin: 1.4em 0;
 }
 
+#buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 #cookiePopup button {
     background-color: #ca7c4c;
     border: none;
@@ -575,7 +579,6 @@ main .slideshow-container .fade {
     padding: 1em 1.4em;
     display: block;
     position: relative;
-    margin: auto;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -591,7 +594,6 @@ main .slideshow-container .fade {
 .show {
     display: block;
 }
-
 
 #introduction-section {
     display: flex;
@@ -737,43 +739,8 @@ main .slideshow-container .fade {
 
 
 
-@media screen and (max-width: 768px) {
-    #introduction-section {
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 0;
-    }
 
-    .mixer-content {
-        max-width: 90%;
-        text-align: center;
-        margin-bottom: 20px;
-    }
 
-    #mixer-image {
-        max-width: 250px;
-        margin: 0 0;
-    }
-
-    #introduction-section h2 {
-        font-size: 22px;
-    }
-
-    #introduction-section p {
-        font-size: 14px;
-        margin-top: 15px;
-        line-height: 1.7;
-    }
-
-    #categories-container {
-        margin-top: -30px;
-    }
-
-    #categories-container h4 {
-        margin: 15px 0 0;
-        font-size: 14px;
-    }
-}
 
 
 @media screen and (min-width: 1440px) {
@@ -972,6 +939,42 @@ main .slideshow-container .fade {
     .savedRecipe-right .bx-download {
         bottom: 15px;
         right: 15px;
+    }
+
+    #introduction-section {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+    .mixer-content {
+        max-width: 90%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    #mixer-image {
+        max-width: 250px;
+        margin: 0 0;
+    }
+
+    #introduction-section h2 {
+        font-size: 22px;
+    }
+
+    #introduction-section p {
+        font-size: 14px;
+        margin-top: 15px;
+        line-height: 1.7;
+    }
+
+    #categories-container {
+        margin-top: -30px;
+    }
+
+    #categories-container h4 {
+        margin: 15px 0 0;
+        font-size: 14px;
     }
 
 } 
