@@ -49,12 +49,11 @@ const cookieStorage = {
 
   setItem: (key, value) => {
       document.cookie = `${key}=${value};path=/;`;
-      console.log(`Cookie set: ${key}=${value}`);
   },
 };
 
 const storageType = cookieStorage;
-const consentPropertyName = 'jdc';
+const consentPropertyName = 'customCookieName';
 
 const showPopup = () => !storageType.getItem(consentPropertyName);
 const saveToStorage = () => storageType.setItem(consentPropertyName, true);
@@ -69,29 +68,24 @@ window.onload = () => {
       return;
   }
 
-  const acceptFunction = event => {
-      console.log("Accept button clicked.");
-      saveToStorage();
-      console.log("Saved to storage.");
+  const acceptFunction = () => {     
+      saveToStorage();      
       consentPopup.classList.add('hide');
-      console.log("Popup hidden.");
+      consentPopup.classList.remove('show');     
   };
 
-  const declineFunction = event => {
-      console.log("Decline button clicked.");
+  const declineFunction = () => {    
       consentPopup.classList.add('hide');
-      consentPopup.classList.remove('show');
-      console.log("Popup hidden.");
+      consentPopup.classList.remove('show');       
   };
 
   acceptBtn.addEventListener('click', acceptFunction);
   declineBtn.addEventListener('click', declineFunction);
 
   if (showPopup()) {
-      setTimeout(() => {
-          console.log("Showing popup.");
+      setTimeout(() => {   
           consentPopup.classList.remove('hide');
           consentPopup.classList.add('show');
       }, 2000);
-  }
+  }    
 };
