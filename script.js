@@ -62,8 +62,9 @@ const saveToStorage = () => storageType.setItem(consentPropertyName, true);
 window.onload = () => {
   const consentPopup = document.getElementById('cookiePopup');
   const acceptBtn = document.getElementById('acceptCookie');
+  const declineBtn = document.getElementById('declineCookie');
 
-  if (!consentPopup || !acceptBtn) {
+  if (!consentPopup || !acceptBtn || !declineBtn) {
       console.error("Popup or button element not found.");
       return;
   }
@@ -76,19 +77,21 @@ window.onload = () => {
       console.log("Popup hidden.");
   };
 
+  const declineFunction = event => {
+      console.log("Decline button clicked.");
+      consentPopup.classList.add('hide');
+      consentPopup.classList.remove('show');
+      console.log("Popup hidden.");
+  };
+
   acceptBtn.addEventListener('click', acceptFunction);
+  declineBtn.addEventListener('click', declineFunction);
 
   if (showPopup()) {
       setTimeout(() => {
           console.log("Showing popup.");
           consentPopup.classList.remove('hide');
+          consentPopup.classList.add('show');
       }, 2000);
   }
 };
-
-
-document.getElementById("declineCookie").addEventListener("click", () => {
-  popUp.classList.add("hide");
-  popUp.classList.remove("show");
-  console.log("Cookie declined and popup hidden.");
-});
