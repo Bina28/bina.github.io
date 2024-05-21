@@ -981,6 +981,10 @@ main .slideshow-container .fade {
         right: 15px;
     }
 
+    #cookiePopup button {
+        font-size: 0.8em; 
+        padding: 0.8em 1.2em; 
+    }
 } 
 
 
