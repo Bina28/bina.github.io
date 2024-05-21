@@ -40,57 +40,52 @@ document.addEventListener("DOMContentLoaded", function() {
 // NO TOUCH PLEASE, SPØR SHAILA
 const cookieStorage = {
   getItem: (key) => {
-    const cookies = document.cookie
-      .split(";")
-      .map((cookie) => cookie.split("="))
-      .reduce((acc, [key, value]) => ({ ...acc, [key.trim()]: value }), {});
-    return cookies[key];
+      const cookies = document.cookie
+          .split(';')
+          .map(cookie => cookie.split('='))
+          .reduce((acc, [key, value]) => ({ ...acc, [key.trim()]: value }), {});
+      return cookies[key];
   },
 
   setItem: (key, value) => {
-    const now = new Date();
-    now.setFullYear(now.getFullYear() + 1);
-    document.cookie = `${key}=${value};expires=${now.toUTCString()};path=/;`;
-    console.log(`Cookie set: ${key}=${value}`);
+      document.cookie = `${key}=${value};path=/;`;
+      console.log(`Cookie set: ${key}=${value}`);
   },
 };
 
 const storageType = cookieStorage;
-const consentPropertyName = "jdc";
+const consentPropertyName = 'jdc';
 
 const showPopup = () => !storageType.getItem(consentPropertyName);
 const saveToStorage = () => storageType.setItem(consentPropertyName, true);
 
 window.onload = () => {
-  const consentPopup = document.getElementById("cookiePopup");
-  const acceptBtn = document.getElementById("acceptCookie");
-
-  console.log("Popup element:", consentPopup);
-  console.log("Accept button element:", acceptBtn);
+  const consentPopup = document.getElementById('cookiePopup');
+  const acceptBtn = document.getElementById('acceptCookie');
 
   if (!consentPopup || !acceptBtn) {
-    console.error("Popup or button element not found.");
-    return;
+      console.error("Popup or button element not found.");
+      return;
   }
-  const acceptFunction = (event) => {
-    console.log("Accept button clicked.");
-    saveToStorage();
-    console.log("Saved to storage.");
-    consentPopup.classList.add("hide");
-    consentPopup.classList.remove("show");
-    console.log("Popup hidden.");
+
+  const acceptFunction = event => {
+      console.log("Accept button clicked.");
+      saveToStorage();
+      console.log("Saved to storage.");
+      consentPopup.classList.add('hide');
+      console.log("Popup hidden.");
   };
 
-  acceptBtn.addEventListener("click", acceptFunction);
+  acceptBtn.addEventListener('click', acceptFunction);
 
   if (showPopup()) {
-    setTimeout(() => {
-      console.log("Showing popup.");
-      consentPopup.classList.remove("hide");
-      consentPopup.classList.add("show");
-    }, 2000);
+      setTimeout(() => {
+          console.log("Showing popup.");
+          consentPopup.classList.remove('hide');
+      }, 2000);
   }
 };
+
 
 document.getElementById("declineCookie").addEventListener("click", () => {
   popUp.classList.add("hide");
