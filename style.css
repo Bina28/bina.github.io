@@ -773,8 +773,8 @@ main .slideshow-container .fade {
 
     .savedRecipe-container img {
         height: 400px;
-    }    
-   
+    }
+    
 }
 
 
@@ -815,8 +815,6 @@ main .slideshow-container .fade {
         max-height: 350px;
     }
 
-  
-
 } 
 
 
@@ -838,6 +836,42 @@ main .slideshow-container .fade {
 
     .savedRecipe-right {
         flex: 0 0 60%;
+    }
+
+    #introduction-section {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+    .mixer-content {
+        max-width: 90%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    #mixer-image {
+        max-width: 250px;
+        margin: 0 0;
+    }
+
+    #introduction-section h2 {
+        font-size: 22px;
+    }
+
+    #introduction-section p {
+        font-size: 14px;
+        margin-top: 15px;
+        line-height: 1.7;
+    }
+
+    #categories-container {
+        margin-top: -30px;
+    }
+
+    #categories-container h4 {
+        margin: 15px 0 0;
+        font-size: 14px;
     }
     
 }
@@ -947,46 +981,6 @@ main .slideshow-container .fade {
         right: 15px;
     }
 
-    #introduction-section {
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 0;
-    }
-
-    .mixer-content {
-        max-width: 90%;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    #mixer-image {
-        max-width: 250px;
-        margin: 0 0;
-    }
-
-    #introduction-section h2 {
-        font-size: 22px;
-    }
-
-    #introduction-section p {
-        font-size: 14px;
-        margin-top: 15px;
-        line-height: 1.7;
-    }
-
-    #categories-container {
-        margin-top: -30px;
-    }
-
-    #categories-container h4 {
-        margin: 15px 0 0;
-        font-size: 14px;
-    }
-
-    #cookiePopup button {
-        font-size: 0.8em; 
-        padding: 0.8em 1.2em; 
-    }
 } 
 
 
