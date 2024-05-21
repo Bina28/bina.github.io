@@ -66,3 +66,10 @@ addEventListener("click", () => {})
     popUp.classList.remove("show");
     console.log("Cookie accepted and popup hidden.");
   });
+
+  // Decline button click event listener
+document.getElementById("declineCookie").addEventListener("click", () => {
+  popUp.classList.add("hide");
+  popUp.classList.remove("show");
+  console.log("Cookie declined and popup hidden.");
+});
