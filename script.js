@@ -35,39 +35,60 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // NO TOUCH PLEASE, SPØR SHAILA
-let popUp = document.getElementById("cookiePopup");
-// When user clicks the accept button
-document.getElementById("acceptCookie").
-addEventListener("click", () => {})
+const cookieStorage = {
+  getItem: (key) => {
+    const cookies = document.cookie
+      .split(";")
+      .map((cookie) => cookie.split("="))
+      .reduce((acc, [key, value]) => ({ ...acc, [key.trim()]: value }), {});
+    return cookies[key];
+  },
 
+  setItem: (key, value) => {
+    const now = new Date();
+    now.setFullYear(now.getFullYear() + 1);
+    document.cookie = `${key}=${value};expires=${now.toUTCString()};path=/;`;
+    console.log(`Cookie set: ${key}=${value}`);
+  },
+};
 
-  // Function to check if the cookie is present
-  function checkCookie() {
-    return document.cookie.includes("myCookieName=");
+const storageType = cookieStorage;
+const consentPropertyName = "jdc";
+
+const showPopup = () => !storageType.getItem(consentPropertyName);
+const saveToStorage = () => storageType.setItem(consentPropertyName, true);
+
+window.onload = () => {
+  const consentPopup = document.getElementById("cookiePopup");
+  const acceptBtn = document.getElementById("acceptCookie");
+
+  console.log("Popup element:", consentPopup);
+  console.log("Accept button element:", acceptBtn);
+
+  if (!consentPopup || !acceptBtn) {
+    console.error("Popup or button element not found.");
+    return;
   }
+  const acceptFunction = (event) => {
+    console.log("Accept button clicked.");
+    saveToStorage();
+    console.log("Saved to storage.");
+    consentPopup.classList.add("hide");
+    consentPopup.classList.remove("show");
+    console.log("Popup hidden.");
+  };
 
-  console.log("Cookie present:", checkCookie());
+  acceptBtn.addEventListener("click", acceptFunction);
 
-  // Check if the cookie is present on page load
-  if (checkCookie()) {
-    console.log("Cookie found. Hiding popup.");
-    popUp.classList.add("hide");
-    popUp.classList.remove("show");
-  } else {
-    console.log("Cookie not found. Showing popup.");
+  if (showPopup()) {
+    setTimeout(() => {
+      console.log("Showing popup.");
+      consentPopup.classList.remove("hide");
+      consentPopup.classList.add("show");
+    }, 2000);
   }
+};
 
-  // Accept button click event listener
-  document.getElementById("acceptCookie").addEventListener("click", () => {
-    let d = new Date();
-    d.setMinutes(2 + d.getMinutes());
-    document.cookie = "myCookieName=thisIsMyCookie; expires=" + d + ";";
-    popUp.classList.add("hide");
-    popUp.classList.remove("show");
-    console.log("Cookie accepted and popup hidden.");
-  });
-
-  // Decline button click event listener
 document.getElementById("declineCookie").addEventListener("click", () => {
   popUp.classList.add("hide");
   popUp.classList.remove("show");
