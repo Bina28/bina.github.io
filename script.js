@@ -1,15 +1,16 @@
-//#region account-dropdown
+//#region account-dropdown in header
 
-var accountDropdown = document.getElementById("account-dropdown"); // Get the "My account" dropdown item
-var dropdownContent = accountDropdown.querySelector(".dropdown-content"); // Get the dropdown content
+var accountDropdown = document.getElementById("account-dropdown"); 
+var dropdownContent = accountDropdown.querySelector(".dropdown-content"); 
 
 // Toggle the dropdown menu when "My account" is clicked
 accountDropdown.addEventListener("click", function(event) {
-    event.preventDefault(); // Prevent the default action (navigation)
-    event.stopPropagation(); // Prevent the click event from bubbling up to the document
+    event.preventDefault(); 
+    event.stopPropagation(); 
     
-    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block"; // Toggle the display of the dropdown content
+    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block"; 
 });
+
 
 // Get rid of dropdown menu when clicking outside of it
 document.addEventListener("click", function(event) {
@@ -30,6 +31,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
 
 //#endregion account-dropdown
 

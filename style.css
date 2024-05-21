@@ -1,32 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
-* {
+*{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    /* Ensures that the width and height of an element includes its padding and border */
+    box-sizing: border-box; /* Ensures that the width and height of an element includes its padding and border */
     font-family: 'Manrope', sans-serif;
 }
 
-a {
+a{
     text-decoration: none;
-    color: rgb(50, 50, 50);
+    color:rgb(50, 50, 50);
 }
 
-i {
-    font-size: 24px;
+i{
+    font-size:24px;
 }
 
 .header-section {
     display: flex;
-    position: fixed;
-    /* Ensures the header stays on screen even when you scroll down */
+    position: fixed; /* Ensures the header stays on screen even when you scroll down */
     align-items: center;
     justify-content: space-between;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    /* Ensures the header stays above other elements */
+    top: 0; 
+    width: 100%; 
+    z-index: 1000; /* Ensures the header stays above other elements */
     background-color: #ffffff;
     padding: 10px 40px 10px 40px;
     box-shadow: 0px 8px 12px 0px rgba(40, 40, 40, 0.1);
@@ -38,19 +35,19 @@ i {
     gap: 10px;
 }
 
-.header-section .logo img {
+.header-section .logo img{ 
     width: 40px;
     height: 40px;
     object-fit: cover;
 }
 
-.header-section .logo a {
+.header-section .logo a{
     font-weight: 800;
     font-size: 20px;
-    color: rgb(50, 50, 50)
+    color:rgb(50, 50, 50)
 }
 
-.header-section .pages {
+.header-section .pages{
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -59,16 +56,16 @@ i {
 .header-section .pages .item {
     display: flex;
     align-items: center;
-    cursor: pointer;
+    cursor: pointer; 
     position: relative;
 }
 
-.header-section .pages i {
+.header-section .pages i{
     color: rgb(50, 50, 50);
     transition: all 0.3s ease;
 }
 
-.header-section .pages a {
+.header-section .pages a{
     display: flex;
     align-items: center;
     gap: 5px;
@@ -77,12 +74,10 @@ i {
     transition: all 0.3s ease;
 }
 
-.header-section .pages .item>a:hover>i,
-.header-section .pages .item>a:hover>span {
+.header-section .pages .item > a:hover > i,
+.header-section .pages .item > a:hover > span {
     color: rgb(100, 100, 100);
-}
-
-/* Only item in header will light up, not the item inside "My account" dropdown list. FIXED! */
+}/* Only item in header will light up, not the item inside "My account" dropdown list. FIXED! */
 
 .header-section .pages .item#active i,
 .header-section .pages .item#active span {
@@ -92,22 +87,22 @@ i {
 .header-section .dropdown-content {
     position: absolute;
     display: none;
-    top: 100%;
+    top: 100%; 
     right: 0;
-    background-color: #ffffff;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
-.header-section .dropdown-content .dropdown-item a {
+.header-section .dropdown-content .dropdown-item a{
     display: flex;
     align-items: center;
     padding: 5px 3px 5px 2px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; 
 }
 
-.header-section .dropdown-content>.dropdown-item:hover {
-    background-color: #f9f9f9;
+.header-section .dropdown-content > .dropdown-item:hover {
+    background-color: #f9f9f9; 
 }
 
 
@@ -119,7 +114,7 @@ main {
 main .container {
     position: absolute;
     top: 10%;
-    left: 50%;
+    left: 50%; 
     transform: translate(-50%);
     min-width: 500px;
     min-height: 620px;
@@ -127,7 +122,7 @@ main .container {
     text-align: center;
 }
 
-main .container h1 {
+main .container h1{
     margin-top: 50px;
 }
 
@@ -135,7 +130,7 @@ main .container #form {
     margin: 70px 30px 30px 30px;
 }
 
-main .container #form label {
+main .container #form label{
     display: block;
     text-align: left;
     font-size: 16px;
@@ -143,7 +138,7 @@ main .container #form label {
     margin-top: 30px;
 }
 
-main .container #form input[type=text],
+main .container #form input[type=text], 
 main .container #form input[type=password] {
     display: block;
     height: 50px;
@@ -156,18 +151,18 @@ main .container #form input[type=password] {
     padding: 0 10px;
 }
 
-main .container #form input-value+* {
+main .container #form input-value + * {
     clear: both;
-}
+  }
 
 main .container #form .social {
     display: flex;
     margin-top: 20px;
 }
 
-main .container #form .social>div {
-    display: flex;
-    justify-content: center;
+main .container #form .social > div {
+    display: flex; 
+    justify-content: center; 
     align-items: center;
     width: 33.3%;
     height: 45px;
@@ -176,11 +171,11 @@ main .container #form .social>div {
     margin: 10px;
 }
 
-main .container #form .social>div:first-child {
+main .container #form .social > div:first-child {
     margin-left: 0;
 }
 
-main .container #form .social>div:last-child {
+main .container #form .social > div:last-child {
     margin-right: 0;
 }
 
@@ -193,7 +188,7 @@ main .container #form .social .apple:hover {
 
 main .container #form .checkbox {
     position: relative;
-    display: flex;
+    display: flex; 
     margin: 10px;
 }
 
@@ -204,9 +199,9 @@ main .container #form .checkbox label {
 main .container .checkbox-color {
     filter: hue-rotate(145deg);
 }
-
+  
 main .container #form input[type=checkbox] {
-    width: 24px;
+    width: 24px; 
     height: 24px;
 }
 
@@ -231,7 +226,7 @@ main .container #form .button .btn {
 
 main .container #form .button .btn:hover {
     background: rgba(140, 180, 40);
-    border: 1px solid rgb(255, 255, 255);
+    border: 1px solid  rgb(255, 255, 255); 
     transition: border 0.3s ease;
     cursor: pointer;
 }
@@ -249,7 +244,7 @@ main .container #form .form-links a:hover {
 
 main .welcome-section {
     position: relative;
-    justify-content: center;
+    justify-content: center; 
     align-items: center;
     height: 500px;
 }
@@ -257,7 +252,7 @@ main .welcome-section {
 main .welcome-section img {
     position: absolute;
     top: 0;
-    left: 50%;
+    left: 50%; 
     transform: translateX(-50%);
     height: 100%;
     width: auto;
@@ -269,13 +264,13 @@ main .welcome-section .welcome-content {
     position: relative;
 }
 
-main .welcome-section .welcome-content h1 {
-    color: rgb(255, 243, 234);
+main .welcome-section .welcome-content h1{
+    color: rgb(255, 243, 234); 
     padding-top: 40px;
 }
 
-main .welcome-section .welcome-content p {
-    color: rgb(255, 243, 234);
+main .welcome-section .welcome-content p{
+    color: rgb(255, 243, 234); 
     padding-top: 10px;
 }
 
@@ -284,8 +279,8 @@ main .welcome-section .welcome-content .explore-button {
     font-size: 16px;
     padding: 10px 20px;
     border-radius: 20px;
-    color: rgb(255, 255, 255);
-    border: 1px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255); 
+    border: 1px solid  rgb(255, 255, 255); 
     transition: border 0.3s ease;
     margin-top: 20px;
 }
@@ -299,7 +294,7 @@ main .welcome-section .welcome-content .explore-button:hover {
 
 main .container-section {
     justify-content: space-between;
-    padding: 10px;
+    padding: 10px; 
 }
 
 main .container-section h1 {
@@ -311,7 +306,7 @@ main .container-section h3 {
 }
 
 main .container-section p {
-    font-size: 18px;
+    font-size: 18px; 
     margin: 5px 0 5px 0;
 }
 
@@ -335,25 +330,25 @@ main .underlinedTitle h2:hover {
 }
 
 main .underlinedTitle p {
-    padding-top: 10px;
-    font-size: 18px;
+    padding-top: 10px; 
+    font-size: 18px; 
 }
 
 
 
 main .slideshow-container {
-    max-width: calc(2 * 400px + 20px);
+    max-width: calc(2 * 400px + 20px); 
     max-height: 400px;
     position: relative;
     margin: auto;
-}
+} 
 
 main .slideshow-container .drinkSlides img {
     min-width: 40%;
     max-height: 400px;
-    border-radius: 18px 0 0 18px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
+    border-radius: 18px 0 0 18px; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+} 
 
 main .slideshow-container .drinkSlides .drink-details {
     float: right;
@@ -365,8 +360,8 @@ main .slideshow-container .drinkSlides .drink-details {
     min-height: 400px;
     background-color: #ffffff;
     border-radius: 0 18px 18px 0;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+} 
 
 main .slideshow-container .drinkSlides .drink-details h3 {
     margin: 40px 40px 10px 40px;
@@ -376,23 +371,23 @@ main .slideshow-container .drinkSlides .drink-details p {
     margin: 10px 40px 40px 40px;
 }
 
-main .slideshow-container .prev,
+main .slideshow-container .prev, 
 main .slideshow-container .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    margin-top: -25px;
-    padding: 16px;
-    color: rgb(50, 50, 50);
-    font-weight: bold;
-    transition: 0.6s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  margin-top: -25px;
+  padding: 16px;
+  color: rgb(50, 50, 50);
+  font-weight: bold;
+  transition: 0.6s ease;
 }
 
 main .slideshow-container .next {
-    right: 0;
+  right: 0;
 }
 
-main .prev:hover,
+main .prev:hover, 
 main .next:hover {
     color: rgb(100, 100, 100);
 }
@@ -408,7 +403,7 @@ main .dot {
     transition: background-color 0.6s ease;
 }
 
-main .active,
+main .active, 
 main .dot:hover {
     background-color: rgb(100, 100, 100);
 }
@@ -419,13 +414,8 @@ main .slideshow-container .fade {
 }
 
 @keyframes fade {
-    from {
-        opacity: .5
-    }
-
-    to {
-        opacity: 1
-    }
+    from {opacity: .5}
+    to {opacity: 1}
 }
 
 
@@ -478,7 +468,7 @@ main .slideshow-container .fade {
     border-radius: 10px;
     border: 1px solid #ccc;
     padding: 20px;
-    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.1);
 }
 
 .recipe-right .bx-download {
@@ -515,7 +505,7 @@ main .slideshow-container .fade {
     position: relative;
     border: 1px solid #ccc;
     padding: 20px;
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.1);
 }
 
 .savedRecipe-right {
@@ -523,7 +513,7 @@ main .slideshow-container .fade {
     position: relative;
     border: 1px solid #ccc;
     padding: 20px;
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.1);
 }
 
 .savedRecipe-right .bx-heart,
@@ -712,29 +702,12 @@ main .slideshow-container .fade {
 }
 
 @keyframes shake {
-    0% {
-        transform: translateX(0);
-    }
-
-    20% {
-        transform: translateX(-10px) rotate(-10deg);
-    }
-
-    40% {
-        transform: translateX(10px) rotate(10deg);
-    }
-
-    60% {
-        transform: translateX(-10px) rotate(-10deg);
-    }
-
-    80% {
-        transform: translateX(10px) rotate(10deg);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
+    0% {transform: translateX(0);}
+    20% {transform: translateX(-10px) rotate(-10deg);}
+    40% {transform: translateX(10px) rotate(10deg);}
+    60% {transform: translateX(-10px) rotate(-10deg);}
+    80% {transform: translateX(10px) rotate(10deg);}
+    100% {transform: translateX(0);}
 }
 
 #mix-button.shake {
@@ -760,304 +733,6 @@ main .slideshow-container .fade {
     text-decoration: underline #8C1E1D;
     text-decoration-thickness: 2px;
     text-underline-offset: 5px;
-}
-
-
-
-
-
-
-
-
-
-@media screen and (min-width: 1440px) {
-
-    main {
-        margin: 4.5%;
-    }
-
-    .recipe-container {
-        width: 20%;
-    }
-
-    .recipe-container p {
-        width: 250px;
-    }
-
-    .recipe-container img {
-        object-fit: cover;
-        height: 300px;
-        width: 100%;
-    }
-
-    .savedRecipe-container p {
-        min-height: 70px;
-    }
-
-    .savedRecipe-container img {
-        height: 400px;
-    }
-
-}
-
-
-
-@media screen and (max-width: 1280px) {
-
-    .header-section {
-        margin: 0;
-        padding: 5px 0 5px 0;
-    }
-
-    main .slideshow-container {
-        max-width: calc(2 * 350px + 20px);
-        max-height: 350px;
-        max-height: 350px;
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        padding: 5px;
-    }
-
-    main .slideshow-container .prev,
-    main .slideshow-container .next {
-        font-size: 14px;
-    }
-
-    main .slideshow-container .drinkSlides img {
-        min-width: 40%;
-        max-width: 40%;
-        min-height: 350px;
-        max-height: 350px;
-    }
-
-    main .slideshow-container .drinkSlides .drink-details {
-        min-width: 60%;
-        max-width: 60%;
-        min-height: 350px;
-        max-height: 350px;
-    }
-
-}
-
-
-
-@media screen and (max-width: 1080px) {
-
-    .recipe-container {
-        width: 33%;
-    }
-
-    .recipe-container p {
-        min-height: 90px;
-        width: 210px;
-    }
-
-    .savedRecipe-left {
-        flex: 0 0 30%;
-    }
-
-    .savedRecipe-right {
-        flex: 0 0 60%;
-    }
-
-}
-
-
-
-@media screen and (max-width: 768px) {
-
-    .header-section .logo .nav-link {
-        display: none;
-    }
-
-    .header-section .item>a>span {
-        display: none;
-    }
-
-    /* Hide the span within anchor tags inside elements with the class 'item', aka. home, drinks etc. */
-
-    .header-section .dropdown-content a>span {
-        display: inline;
-    }
-
-    /* Show the span within anchor tags inside dropdown items, aka. edit profile, privacy policy and logout */
-
-
-    main .welcome-section {
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        height: 300px;
-    }
-
-    main .welcome-section img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-    }
-
-    main .welcome-section .welcome-content h1,
-    main .welcome-section .welcome-content p {
-        color: rgb(255, 255, 255);
-    }
-
-    main .welcome-section .welcome-content .explore-button {
-        background-color: rgba(255, 255, 255, 0.3);
-        color: rgb(255, 255, 255);
-        border: 1px solid rgb(255, 255, 255);
-    }
-
-    main .slideshow-container {
-        max-width: calc(2 * 350px + 20px);
-        max-height: 350px;
-        max-height: 350px;
-        margin: 0 auto;
-    }
-
-    main .slideshow-container .prev,
-    main .slideshow-container .next {
-        font-size: 14px;
-    }
-
-    main .slideshow-container .drinkSlides img {
-        min-width: 50%;
-        max-width: 50%;
-        min-height: 350px;
-        max-height: 350px;
-    }
-
-    main .slideshow-container .drinkSlides .drink-details {
-        min-width: 50%;
-        max-width: 50%;
-        min-height: 350px;
-        max-height: 350px;
-    }
-
-    main .dot {
-        height: 12px;
-        width: 12px;
-    }
-
-    .recipe-container {
-        width: 50%;
-    }
-
-    .recipe-container p {
-        width: auto;
-    }
-
-    .savedRecipe-container p {
-        display: none;
-    }
-
-    .savedRecipe-left {
-        flex: 0 0 30%;
-        padding: 15px;
-    }
-
-    .savedRecipe-right {
-        flex: 0 0 70%;
-        padding: 15px;
-    }
-
-    .savedRecipe-right .bx-heart,
-    .savedRecipe-right .bxs-heart {
-        top: 15px;
-        right: 15px;
-    }
-
-    .savedRecipe-right .bx-download {
-        bottom: 15px;
-        right: 15px;
-    }
-
-}
-
-
-
-@media screen and (max-width: 480px) {
-
-    main {
-        margin: 15% 0;
-    }
-
-    main .slideshow-container {
-        max-width: calc(2 * 350px + 20px);
-        max-height: 350px;
-        max-height: 350px;
-    }
-
-    main .slideshow-container .prev,
-    main .slideshow-container .next {
-        font-size: 14px;
-    }
-
-    main .slideshow-container .drinkSlides img {
-        min-width: 70%;
-        max-width: 70%;
-        min-height: 350px;
-        max-height: 350px;
-    }
-
-    main .slideshow-container .drinkSlides .drink-details {
-        min-width: 30%;
-        max-width: 30%;
-        min-height: 350px;
-        max-height: 350px;
-    }
-
-    main .slideshow-container .drinkSlides .drink-details h3 {
-        font-size: 20px;
-        margin: 20px;
-    }
-
-    main .slideshow-container .drinkSlides .drink-details p {
-        display: none;
-    }
-
-    main .dot {
-        height: 10px;
-        width: 10px;
-    }
-
-    .recipe-container {
-        width: 100%;
-    }
-
-    .recipe-container p {
-        min-height: 70px;
-        width: 280px;
-    }
-
-    .savedRecipe-container h3 {
-        margin-top: 10px;
-    }
-
-    .savedRecipe-container img {
-        display: none;
-    }
-
-    .savedRecipe-left {
-        flex: 0 0 25%;
-        padding: 10px;
-    }
-
-    .savedRecipe-right {
-        flex: 0 0 75%;
-        padding: 10px;
-    }
-
-    .savedRecipe-right .bx-heart,
-    .savedRecipe-right .bxs-heart {
-        top: 10px;
-        right: 10px;
-    }
-
-    .savedRecipe-right .bx-download {
-        bottom: 10px;
-        right: 10px;
-    }
 }
 
 
@@ -1099,3 +774,290 @@ main .slideshow-container .fade {
         font-size: 14px;
     }
 }
+
+
+@media screen and (min-width: 1440px) {
+
+    main {
+        margin: 4.5%;
+    }
+    
+    .recipe-container {
+        width: 20%;
+    }
+
+    .recipe-container p {
+        width: 250px;
+    }
+
+    .recipe-container img {
+        object-fit: cover;
+        height: 300px;
+        width: 100%;
+    }
+
+    .savedRecipe-container p {
+        min-height: 70px;
+    }
+
+    .savedRecipe-container img {
+        height: 400px;
+    }
+    
+}
+
+
+
+@media screen and (max-width: 1280px) {
+    
+    .header-section{
+        margin: 0;
+        padding: 5px 0 5px 0;
+    }
+    
+    main .slideshow-container {
+        max-width: calc(2 * 350px + 20px);
+        max-height: 350px;
+        max-height: 350px;
+        position: relative;
+        justify-content: center; 
+        align-items: center;
+        padding: 5px;
+    }
+
+    main .slideshow-container .prev,
+    main .slideshow-container .next {
+        font-size: 14px; 
+    }
+
+    main .slideshow-container .drinkSlides img {
+        min-width: 40%;
+        max-width: 40%;
+        min-height: 350px;
+        max-height: 350px;
+    }
+
+    main .slideshow-container .drinkSlides .drink-details {
+        min-width: 60%;
+        max-width: 60%;
+        min-height: 350px;
+        max-height: 350px;
+    }
+
+} 
+
+
+
+@media screen and (max-width: 1080px) {
+
+    .recipe-container {
+        width: 33%;
+    }
+
+    .recipe-container p {
+        min-height: 90px;
+        width: 210px;
+    }
+
+    .savedRecipe-left {
+        flex: 0 0 30%;
+    }
+
+    .savedRecipe-right {
+        flex: 0 0 60%;
+    }
+    
+}
+
+
+
+@media screen and (max-width: 768px) {
+
+    .header-section .logo .nav-link {
+        display: none;
+    }
+
+    .header-section .item > a > span {
+        display: none;
+    } /* Hide the span within anchor tags inside elements with the class 'item', aka. home, drinks etc. */
+
+    .header-section .dropdown-content a > span {
+        display: inline;
+    } /* Show the span within anchor tags inside dropdown items, aka. edit profile, privacy policy and logout */
+    
+
+    main .welcome-section {
+        position: relative;
+        justify-content: center; 
+        align-items: center;
+        height: 300px;
+    }
+    
+    main .welcome-section img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }   
+
+    main .welcome-section .welcome-content h1,
+    main .welcome-section .welcome-content p{
+        color: rgb(255, 255, 255); 
+    }
+
+    main .welcome-section .welcome-content .explore-button {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: rgb(255, 255, 255); 
+        border: 1px solid  rgb(255, 255, 255); 
+    }
+
+    main .slideshow-container {
+        max-width: calc(2 * 350px + 20px);
+        max-height: 350px;
+        max-height: 350px;
+        margin: 0 auto;
+    }
+
+    main .slideshow-container .prev,
+    main .slideshow-container .next {
+        font-size: 14px; 
+    }
+
+    main .slideshow-container .drinkSlides img {
+        min-width: 50%;
+        max-width: 50%;
+        min-height: 350px;
+        max-height: 350px;
+    }
+
+    main .slideshow-container .drinkSlides .drink-details {
+        min-width: 50%;
+        max-width: 50%;
+        min-height: 350px;
+        max-height: 350px;
+    }
+
+    main .dot{
+        height: 12px;
+        width: 12px;
+    }
+
+    .recipe-container {
+        width: 50%;
+    }
+
+    .recipe-container p {
+        width: auto;
+    }
+
+    .savedRecipe-container p {
+        display:none;
+    }
+
+    .savedRecipe-left {
+        flex: 0 0 30%;
+        padding: 15px;
+    }
+
+    .savedRecipe-right {
+        flex: 0 0 70%;
+        padding: 15px;
+    }
+    
+    .savedRecipe-right .bx-heart,
+    .savedRecipe-right .bxs-heart {
+        top: 15px;
+        right: 15px;
+    }
+
+    .savedRecipe-right .bx-download {
+        bottom: 15px;
+        right: 15px;
+    }
+
+} 
+
+
+
+@media screen and (max-width: 480px) {
+
+    main {
+        margin: 15% 0;
+    }
+
+    main .slideshow-container {
+        max-width: calc(2 * 350px + 20px);
+        max-height: 350px;
+        max-height: 350px;
+    }
+
+    main .slideshow-container .prev,
+    main .slideshow-container .next {
+        font-size: 14px; 
+    }
+
+    main .slideshow-container .drinkSlides img {
+        min-width: 70%;
+        max-width: 70%;
+        min-height: 350px;
+        max-height: 350px;
+    }
+
+    main .slideshow-container .drinkSlides .drink-details {
+        min-width: 30%;
+        max-width: 30%;
+        min-height: 350px;
+        max-height: 350px;
+    }
+
+    main .slideshow-container .drinkSlides .drink-details h3 {
+        font-size: 20px;
+        margin: 20px;
+    }
+
+    main .slideshow-container .drinkSlides .drink-details p {
+        display: none;
+    }
+
+    main .dot{
+        height: 10px;
+        width: 10px;
+    }
+
+    .recipe-container {
+        width: 100%;
+    }
+
+    .recipe-container p {
+        min-height: 70px;
+        width: 280px;
+    }
+
+    .savedRecipe-container h3 {
+        margin-top: 10px;
+    }
+
+    .savedRecipe-container img {
+        display: none;
+    }
+
+    .savedRecipe-left {
+        flex: 0 0 25%;
+        padding: 10px;
+    }
+
+    .savedRecipe-right {
+        flex: 0 0 75%;
+        padding: 10px;
+    }
+
+    .savedRecipe-right .bx-heart,
+    .savedRecipe-right .bxs-heart {
+        top: 10px;
+        right: 10px;
+    }
+
+    .savedRecipe-right .bx-download {
+        bottom: 10px;
+        right: 10px;
+    }
+} 
