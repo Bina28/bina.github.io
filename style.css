@@ -773,8 +773,8 @@ main .slideshow-container .fade {
 
     .savedRecipe-container img {
         height: 400px;
-    }
-    
+    }    
+   
 }
 
 
@@ -814,6 +814,8 @@ main .slideshow-container .fade {
         min-height: 350px;
         max-height: 350px;
     }
+
+  
 
 } 
 
@@ -981,6 +983,10 @@ main .slideshow-container .fade {
         font-size: 14px;
     }
 
+    #cookiePopup button {
+        font-size: 0.8em; 
+        padding: 0.8em 1.2em; 
+    }
 } 
 
 
