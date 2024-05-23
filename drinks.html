@@ -248,7 +248,14 @@
             listItem.appendChild(leftSide);
             listItem.appendChild(rightSide);
 
+            // Add click event to toggle no-hover class
+            listItem.addEventListener('click', function() {
+            listItem.classList.toggle('no-hover');
+             });
+
             RecipesContainer.appendChild(listItem);
+
+            
         }
 
         window.addEventListener('load', getRecipes);

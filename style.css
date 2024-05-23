@@ -105,8 +105,6 @@ i{
     background-color: #f9f9f9; 
 }
 
-
-
 main {
     margin: 8% 1%;
 }
@@ -478,7 +476,19 @@ main .slideshow-container .fade {
     cursor: pointer;
 }
 
+/* Added a hover effect. Remove if not wanted */
+.recipe-container {
+    transition: transform 0.5s ease;
+}
 
+.recipe-container:hover {
+    transform: scale(1.05);
+}
+
+/* disable hover effect after clicking */
+.recipe-container.no-hover:hover {
+    transform: none;
+}
 
 .savedRecipe-container {
     display: flex;
