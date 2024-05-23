@@ -101,6 +101,40 @@
         <div id="Recipes"></div>
     </main>
 
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit" id="submitBtn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Message Sent</h2>
+            <p>Your message has been sent successfully!</p>
+        </div>
+    </div>
+
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="#contactModal" class="nav-link">Contact Us</a>
+            </div>
+            <p>&copy; 2024 MixiePixie. All rights reserved.</p>
+        </div>
+    </footer>
+
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getDatabase, ref, set, get, remove, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
@@ -373,22 +407,19 @@
                     addShowMoreButton();
                 }
             }
-               //Button to display additional content when clicked
-        function addShowMoreButton() {
-            let showMoreButton = document.createElement('button');
-            showMoreButton.textContent = 'See more';
-            showMoreButton.classList.add('show-more-button');
-            showMoreButton.addEventListener('click', function () {
-                currentPage++;
-                displayCocktailsForPage(currentPage);
-                this.remove();
-            });
-            RecipesContainer.appendChild(showMoreButton);
+            //Button to display additional content when clicked
+            function addShowMoreButton() {
+                let showMoreButton = document.createElement('button');
+                showMoreButton.textContent = 'See more';
+                showMoreButton.classList.add('show-more-button');
+                showMoreButton.addEventListener('click', function () {
+                    currentPage++;
+                    displayCocktailsForPage(currentPage);
+                    this.remove();
+                });
+                RecipesContainer.appendChild(showMoreButton);
+            }
         }
-        }
-
-
-     
 
 
         // Toggle between recipe sides
@@ -470,6 +501,83 @@
         // Events to clear localStorage when user close the page
         window.addEventListener('beforeunload', () => {
             localStorage.clear();
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const submitBtn = document.getElementById('submitBtn');
+            const contactModal = document.getElementById('contactModal');
+            const confirmationModal = document.getElementById('confirmationModal');
+            const closeModalButtons = document.querySelectorAll('.close');
+
+            // Function to show modal
+            function showModal(modal) {
+                console.log('Showing modal:', modal.id);
+                modal.style.display = 'block';
+            }
+
+            // Function to hide modal
+            function hideModal(modal) {
+                console.log('Hiding modal:', modal.id);
+                modal.style.display = 'none';
+            }
+
+            // Event listener for submit button
+            submitBtn.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent form submission
+
+                // Validate form inputs
+                var email = getInputVal('email');
+                var message = getInputVal('message');
+                console.log(message);
+
+                if (email.trim() !== '' && message.trim() !== '') {
+                    // Form inputs are valid, show confirmation modal
+                    hideModal(contactModal);
+                    showModal(confirmationModal);
+                    saveMessage(email, message);
+                } else {
+                    // Form inputs are not valid, alert user
+                    alert('Please fill out all required fields.');
+                }
+            });
+
+            function getInputVal(id) {
+                return document.getElementById(id).value;
+            }
+
+            function saveMessage(email, message) {
+                const newMessageRef = ref(db, 'messages/' + new Date().getTime());
+                set(newMessageRef, {
+                    email: email,
+                    message: message
+                });
+            }
+            // Event listeners for close buttons
+            closeModalButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    console.log('Close button clicked');
+                    hideModal(confirmationModal);
+                    hideModal(contactModal);
+                });
+            });
+
+            // Event listener to close modal when clicking outside the modal
+            window.addEventListener('click', function (event) {
+                if (event.target === contactModal || event.target === confirmationModal) {
+                    console.log('Clicked outside modal');
+                    hideModal(event.target);
+                }
+            });
+
+            // Find the "Contact Us" link
+            const contactLink = document.querySelector('a[href="#contactModal"]');
+
+            // Add a click event listener to the link
+            contactLink.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent default anchor behavior
+                showModal(contactModal); // Show the contact modal when the link is clicked
+            });
         });
 
 
