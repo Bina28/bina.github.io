@@ -385,6 +385,13 @@ main .slideshow-container .next {
   right: 0;
 }
 
+.drinkSlides:hover {
+    transform: scale(1.05);
+}
+.drinkSlides:hover .drink-details {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
 main .prev:hover, 
 main .next:hover {
     color: rgb(100, 100, 100);
