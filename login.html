@@ -111,7 +111,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getDatabase, get, ref, child} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
-        import { getAuth, setPersistence, signInWithEmailAndPassword, signOut, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import { getAuth, setPersistence, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, browserSessionPersistence, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
         
         // Firebase configuration
         const firebaseConfig = {
@@ -161,6 +161,29 @@
             }
 
             loginForm.addEventListener('submit', signInUser); 
+
+            
+            // Function to login with Google
+            const signInWithGoogle = () => {
+                signInWithPopup(auth, provider)
+                    .then((result) => {
+                        const credential = GoogleAuthProvider.credentialFromResult(result);
+                        const token = credential.accessToken;
+                        const user = result.user;
+                        window.location.href = "saved.html";
+                        localStorage.setItem("user", JSON.stringify(user));
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        const email = error.email;
+                        const credential = GoogleAuthProvider.credentialFromError(error);
+                        alert("Google Sign-In Error: " + errorMessage);
+                    });
+            };
+
+            // Event listener for Google sign-in button
+            googleSignInBtn.addEventListener('click', signInWithGoogle);
 
 
             // Events listener for logout

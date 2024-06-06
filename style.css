@@ -208,11 +208,16 @@ main .container #form input[type=checkbox]:hover {
 }
 
 main .container #form .button {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 50px;
 }
 
 main .container #form .button .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 80px;
     height: 80px;
     border-radius: 30px;
